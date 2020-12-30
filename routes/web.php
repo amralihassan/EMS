@@ -7,5 +7,5 @@ Auth::routes();
 /**
  * === DASHBOARD
  */
-Route::redirect('/','dashboard');
-Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+Route::redirect('/','employees');
+// Route::get('/employees', 'EmployeeController@index')->name('employees');
