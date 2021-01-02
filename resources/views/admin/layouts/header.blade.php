@@ -32,8 +32,18 @@
                         </ul>
                     </div>
                     <ul class="nav navbar-nav float-right">
-                        <li class="dropdown dropdown-language nav-item"><a class="dropdown-toggle nav-link" id="dropdown-flag" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="flag-icon flag-icon-us"></i><span class="selected-language">English</span></a>
-                            <div class="dropdown-menu" aria-labelledby="dropdown-flag"><a class="dropdown-item" href="#" data-language="en"><i class="flag-icon flag-icon-us"></i> English</a><a class="dropdown-item" href="#" data-language="fr"><i class="flag-icon flag-icon-fr"></i> French</a><a class="dropdown-item" href="#" data-language="de"><i class="flag-icon flag-icon-de"></i> German</a><a class="dropdown-item" href="#" data-language="pt"><i class="flag-icon flag-icon-pt"></i> Portuguese</a></div>
+                        <li class="dropdown dropdown-language nav-item">
+                            <a class="dropdown-toggle nav-link" id="dropdown-flag" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @if (session('lang') == 'ar')
+                                    <i class="flag-icon flag-icon-eg"></i><span class="selected-language">{{ trans('local.arabic') }}</span>
+                                @else
+                                    <i class="flag-icon flag-icon-us"></i><span class="selected-language">{{ trans('local.english') }}</span>
+                                @endif
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown-flag">
+                                <a class="dropdown-item" href="{{route('lang',['lang'=>'en'])}}" data-language="en"><i class="flag-icon flag-icon-us"></i> {{ trans('local.english') }}</a>
+                                <a class="dropdown-item" href="{{route('lang',['lang'=>'ar'])}}" data-language="fr"><i class="flag-icon flag-icon-eg"></i> {{ trans('local.arabic') }}</a>
+                            </div>
                         </li>
                         <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon feather icon-maximize"></i></a></li>
                         <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon feather icon-search"></i></a>
@@ -44,7 +54,7 @@
                                 <ul class="search-list search-list-main"></ul>
                             </div>
                         </li>
-                        <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-shopping-cart"></i><span class="badge badge-pill badge-primary badge-up cart-item-count">6</span></a>
+                        {{-- <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-shopping-cart"></i><span class="badge badge-pill badge-primary badge-up cart-item-count">6</span></a>
                             <ul class="dropdown-menu dropdown-menu-media dropdown-cart dropdown-menu-right">
                                 <li class="dropdown-menu-header">
                                     <div class="dropdown-header m-0 p-2">
@@ -97,7 +107,7 @@
                                 <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center text-primary" href="app-ecommerce-checkout.html"><i class="feather icon-shopping-cart align-middle"></i><span class="align-middle text-bold-600">Checkout</span></a></li>
                                 <li class="empty-cart d-none p-2">Your Cart Is Empty.</li>
                             </ul>
-                        </li>
+                        </li> --}}
                         <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-bell"></i><span class="badge badge-pill badge-primary badge-up">5</span></a>
                             <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
                                 <li class="dropdown-menu-header">

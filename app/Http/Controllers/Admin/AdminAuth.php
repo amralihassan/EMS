@@ -37,13 +37,8 @@ class AdminAuth extends Controller
             }
             session()->put('login', true);
 
-            if (!session()->has('lang')) {
-                if (authInfo()->lang == 'ar') {
-                    session()->put('lang', 'ar');
-                } else {
-                    session()->put('lang', 'en');
-                }
-            }
+            session()->put('lang', authInfo()->lang);
+
             return redirect()->route('dashboard');
         }
         toastr()->error(trans('local.invalid_username_password'));
@@ -54,6 +49,8 @@ class AdminAuth extends Controller
     {
         adminAuth()->logout();
         session()->forget('login');
+        session()->forget('lang');
+
 
         return redirect()->route('login');
     }

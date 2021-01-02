@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Operations\AdminOp;
 
 class HomeController extends Controller
 {
@@ -19,5 +21,16 @@ class HomeController extends Controller
     {
         toastr()->success('Welcome');
         return view('home');
+    }
+
+    public function lang($lang)
+    {
+        if (AdminOp::updateLang($lang)) {
+            session()->has('lang') ? session()->forget('lang') : '';
+            // set new session
+            $lang == 'ar' ? session()->put('lang', 'ar') : session()->put('lang', 'en');
+        }
+
+        return back();
     }
 }

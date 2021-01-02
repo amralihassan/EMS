@@ -19,5 +19,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         // ADMIN DASHBOARD
         Route::redirect('/', 'dashboard');
         Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+
+        // CHANGE SYSTEM LANG
+        Route::get('lang/{lang}','HomeController@lang')->name('lang');
     });
 });

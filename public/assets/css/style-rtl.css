@@ -9,3 +9,10 @@ NOTE:
 ------
 PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+.red{color: red;}
+body,h1,h2,h3,h4,h5,h6,a,li,p,span {font-family: 'Cairo', sans-serif;}
+
+.sweet-alert h2 {font-family: 'Cairo', sans-serif;font-weight: 500;}
+.sweet-alert p {font-family: 'Cairo', sans-serif;}
+.sweet-alert button {font-family: 'Cairo', sans-serif;}
+.sweet-alert {font-family: 'Cairo', sans-serif;}
