@@ -4,15 +4,13 @@
 @section('content')
                 <!-- Dashboard Analytics Start -->
                 <section id="dashboard-analytics">
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-lg-6 col-md-12 col-sm-12">
                             <div class="card bg-analytics text-white">
                                 <div class="card-content">
                                     <div class="card-body text-center">
-                                        <img src="../../../app-assets/images/elements/decore-left.png" class="img-left" alt="
-            card-img-left">
-                                        <img src="../../../app-assets/images/elements/decore-right.png" class="img-right" alt="
-            card-img-right">
+                                        <img src="../../../app-assets/images/elements/decore-left.png" class="img-left" alt="card-img-left">
+                                        <img src="../../../app-assets/images/elements/decore-right.png" class="img-right" alt="card-img-right">
                                         <div class="avatar avatar-xl bg-primary shadow mt-0">
                                             <div class="avatar-content">
                                                 <i class="feather icon-award white font-large-1"></i>
@@ -58,8 +56,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
+                    </div> --}}
+                    {{-- <div class="row">
                         <div class="col-md-6 col-12">
                             <div class="card">
                                 <div class="card-content">
@@ -165,8 +163,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row match-height">
+                    </div> --}}
+                    {{-- <div class="row match-height">
                         <div class="col-lg-4 col-12">
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between pb-0">
@@ -295,7 +293,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="row">
                         <div class="col-12">
                             <div class="card">

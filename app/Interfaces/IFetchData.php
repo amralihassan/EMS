@@ -11,6 +11,4 @@ interface IFetchData
     public static function _fetchAll();
 
     public static function _fetchById($id);
-
-    public static function _fetchAllByQuery($query);
 }

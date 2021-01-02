@@ -39,6 +39,7 @@
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/animsition.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
     <!-- END: Custom CSS-->
 
@@ -47,7 +48,7 @@
 
 <!-- BEGIN: Body-->
 
-<body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+<body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static   " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 
     <!-- BEGIN: Header-->
         @include('admin.layouts.header')
@@ -59,7 +60,8 @@
     <!-- END: Main Menu-->
 
     <!-- BEGIN: Content-->
-    <div class="app-content content">
+    {{-- add animation classes zoom-in-lg --}}
+    <div class="app-content content animsition" data-animsition-in-class="zoom-in-lg" data-animsition-in-duration="1000" >
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
         <div class="content-wrapper">
@@ -103,7 +105,15 @@
     <!-- BEGIN: Page JS-->
     <script src="{{asset('app-assets/js/scripts/pages/dashboard-analytics.js')}}"></script>
     <!-- END: Page JS-->
-
+    
+    {{-- start animation --}}
+    <script src="{{asset('assets/js/animsition.min.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+          $('.animsition').animsition();
+        });
+    </script>
+    {{-- end animation --}}
 </body>
 <!-- END: Body-->
 
