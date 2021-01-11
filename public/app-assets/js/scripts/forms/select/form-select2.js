@@ -3,7 +3,8 @@
     Description: Select2 is a jQuery-based replacement for select boxes.
     It supports searching, remote data sets, and pagination of results.
     ----------------------------------------------------------------------------------------
-    Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
+    Item Name: Modern Admin - Clean Bootstrap 4 Dashboard HTML Template
+    Version: 1.0
     Author: Pixinvent
     Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
@@ -11,17 +12,16 @@
 	'use strict';
 
   // Basic Select2 select
-	$(".select2").select2({
-    // the following code is used to disable x-scrollbar when click in select input and
-    // take 100% width in responsive also
-    dropdownAutoWidth: true,
-    width: '100%'
-  });
+	$(".select2").select2();
+
+    // Single Select Placeholder
+    $(".select2-placeholder").select2({
+      placeholder: "Select a state",
+      allowClear: true
+    });
 
     // Select With Icon
     $(".select2-icons").select2({
-        dropdownAutoWidth: true,
-        width: '100%',
         minimumResultsForSearch: Infinity,
         templateResult: iconFormat,
         templateSelection: iconFormat,
@@ -32,30 +32,53 @@
     function iconFormat(icon) {
         var originalOption = icon.element;
         if (!icon.id) { return icon.text; }
-        var $icon = "<i class='" + $(icon.element).data('icon') + "'></i>" + icon.text;
+        var $icon = "<i class='la la-" + $(icon.element).data('icon') + "'></i>" + icon.text;
 
         return $icon;
     }
 
+    // Multiple Select Placeholder
+    $(".select2-placeholder-multiple").select2({
+      placeholder: "Select State",
+    });
+
+    // Hiding the search box
+    $(".hide-search").select2({
+      minimumResultsForSearch: Infinity
+    });
 
     // Limiting the number of selections
     $(".max-length").select2({
-      dropdownAutoWidth: true,
-      width: '100%',
       maximumSelectionLength: 2,
       placeholder: "Select maximum 2 items"
     });
 
+    // DOM Events
+    var $eventSelect = $(".js-example-events");
+    $eventSelect.select2({
+      placeholder: "DOM Events"
+    });
+    $eventSelect.on("select2:open", function (e) {
+        alert("Open Event Fired.");
+    });
+    $eventSelect.on("select2:close", function (e) {
+        alert("Close Event Fired.");
+     });
+    $eventSelect.on("select2:select", function (e) {
+        alert("Select Event Fired.");
+    });
+    $eventSelect.on("select2:unselect", function (e) {
+        alert("Unselect Event Fired.");
+    });
+
+    $eventSelect.on("change", function (e) {
+        alert("Change Event Fired.");
+    });
 
     // Programmatic access
-    var $select = $(".js-example-programmatic").select2({
-      dropdownAutoWidth: true,
-      width: '100%'
-    });
+    var $select = $(".js-example-programmatic").select2();
     var $selectMulti = $(".js-example-programmatic-multi").select2();
     $selectMulti.select2({
-      dropdownAutoWidth: true,
-      width: '100%',
       placeholder: "Programmatic Events"
     });
     $(".js-programmatic-set-val").on("click", function () { $select.val("CA").trigger("change"); });
@@ -79,17 +102,14 @@
     ];
 
     $(".select2-data-array").select2({
-      dropdownAutoWidth: true,
-      width: '100%',
       data: data
     });
 
     // Loading remote data
     $(".select2-data-ajax").select2({
-        dropdownAutoWidth: true,
-        width: '100%',
-        ajax: {
-        url: "https://api.github.com/search/repositories",
+      placeholder: "Loading remote data",
+      ajax: {
+        url: "http://api.github.com/search/repositories",
         dataType: 'json',
         delay: 250,
         data: function (params) {
@@ -114,12 +134,11 @@
         },
         cache: true
       },
-      placeholder: 'Search for a repository',
       escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
       minimumInputLength: 1,
-      templateResult: formatRepo,
-      templateSelection: formatRepoSelection
-  });
+      templateResult: formatRepo, // omitted for brevity, see the source of this page
+      templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+    });
 
     function formatRepo (repo) {
       if (repo.loading) return repo.text;
@@ -134,9 +153,9 @@
       }
 
       markup += "<div class='select2-result-repository__statistics'>" +
-        "<div class='select2-result-repository__forks'><i class='icon-code-fork mr-0'></i> " + repo.forks_count + " Forks</div>" +
-        "<div class='select2-result-repository__stargazers'><i class='icon-star5 mr-0'></i> " + repo.stargazers_count + " Stars</div>" +
-        "<div class='select2-result-repository__watchers'><i class='icon-eye mr-0'></i> " + repo.watchers_count + " Watchers</div>" +
+        "<div class='select2-result-repository__forks'><i class='la la-code-fork mr-0'></i> " + repo.forks_count + " Forks</div>" +
+        "<div class='select2-result-repository__stargazers'><i class='la la-star-o mr-0'></i> " + repo.stargazers_count + " Stars</div>" +
+        "<div class='select2-result-repository__watchers'><i class='la la-eye mr-0'></i> " + repo.watchers_count + " Watchers</div>" +
       "</div>" +
       "</div></div>";
 
@@ -147,6 +166,16 @@
       return repo.full_name || repo.text;
     }
 
+    // Tagging support
+    $(".select2-tags").select2({
+      tags: true
+    });
+
+    // Automatic tokenization
+    $(".select2-tokenizer").select2({
+      tags: true,
+      tokenSeparators: [',', ' ']
+    });
 
     // Customizing how results are matched
     function matchStart (term, text) {
@@ -159,19 +188,47 @@
 
     $.fn.select2.amd.require(['select2/compat/matcher'], function (oldMatcher) {
       $(".select2-customize-result").select2({
-        dropdownAutoWidth: true,
-        width: '100%',
-        placeholder: "Search by 'r'",
+        placeholder: "Search by 'a'",
         matcher: oldMatcher(matchStart)
       });
     });
 
+    // Multiple languages
+    $(".select2-language").select2({
+      language: "es"
+    });
+
+    // RTL support
+    $(".select2-rtl").select2({
+      placeholder: "RTL Select",
+      dir: "rtl"
+    });
+
+    // Diacritics support
+    $(".select2-diacritics").select2({
+      placeholder: "Type 'aero'",
+    });
+
     // Theme support
     $(".select2-theme").select2({
-      dropdownAutoWidth: true,
-      width: '100%',
       placeholder: "Classic Theme",
       theme: "classic"
+    });
+
+    // Templating
+    function formatState (state) {
+      if (!state.id) { return state.text; }
+      else{
+        var $state = $(
+          '<span><img src="../../../app-assets/images/flags/' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
+        );
+        return $state;
+      }
+    }
+
+    $(".select2-templating").select2({
+      templateResult: formatState,
+      templateSelection: formatState
     });
 
 
@@ -179,16 +236,19 @@
 
     // Large
     $('.select2-size-lg').select2({
-        dropdownAutoWidth: true,
-        width: '100%',
         containerCssClass: 'select-lg'
     });
 
+
     // Small
     $('.select2-size-sm').select2({
-        dropdownAutoWidth: true,
-        width: '100%',
         containerCssClass: 'select-sm'
+    });
+
+
+    // Mini
+    $('.select2-size-xs').select2({
+        containerCssClass: 'select-xs'
     });
 
     // Color Options
@@ -211,8 +271,6 @@
       var className = "bg-"+color + variation + " " + textColor + textVariation + " border-"+color + ' border-darken-2 ';
 
       $(this).select2({
-        dropdownAutoWidth: true,
-        width: '100%',
         containerCssClass: className
       });
     });
@@ -236,9 +294,29 @@
       var className = "border-"+color + " " +variation + " " + textColor + textVariation;
 
       $(this).select2({
-        dropdownAutoWidth: true,
-        width: '100%',
         containerCssClass: className
+      });
+    });
+
+    // Menu Background Color
+    $('.select2-menu-bg').each(function(i, obj) {
+      var variation = "",
+      textVariation = "",
+      textColor = "";
+      var color = $(this).data('bgcolor');
+      variation = $(this).data('bgcolor-variation');
+      textVariation = $(this).data('text-variation');
+      textColor = $(this).data('text-color');
+      if(variation !== ""){
+        variation = " bg-"+variation;
+      }
+      if(textVariation !== ""){
+        textVariation = " "+textVariation;
+      }
+      var className = "bg-"+color + variation + " " + textColor + textVariation + " border-"+color + ' border-darken-2 ';
+
+      $(this).select2({
+        dropdownCssClass: className
       });
     });
 
@@ -260,8 +338,6 @@
       var className = "bg-"+color + variation + " " + textColor + textVariation + " border-"+color + ' border-darken-2 ';
 
       $(this).select2({
-        dropdownAutoWidth: true,
-        width: '100%',
         containerCssClass: className,
         dropdownCssClass: className
       });

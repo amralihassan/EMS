@@ -14,13 +14,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
     Route::group(['middleware' => 'admin'], function () {
         // LOGOUT
-        Route::get('logout','AdminAuth@logout')->name('logout');
+        Route::get('/logout', 'AdminAuth@logout')->name('logout');
 
         // ADMIN DASHBOARD
         Route::redirect('/', 'dashboard');
         Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
         // CHANGE SYSTEM LANG
-        Route::get('lang/{lang}','HomeController@lang')->name('lang');
+        Route::get('/lang/{lang}', 'HomeController@lang')->name('lang');
+
+        // MANAGE ADMINISTRATORS
+        Route::resource('/administrators', 'AdminController')->except('destroy', 'show');
     });
 });

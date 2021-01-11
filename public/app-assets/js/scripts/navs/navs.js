@@ -4,7 +4,8 @@
                  from the base .nav class to the active and disabled states.
                  Swap modifier classes to switch between each style.
     ----------------------------------------------------------------------------------------
-    Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
+    Item Name: Modern Admin - Clean Bootstrap 4 Dashboard HTML Template
+    Version: 1.0
     Author: PIXINVENT
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/

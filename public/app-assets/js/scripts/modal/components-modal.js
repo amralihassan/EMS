@@ -1,9 +1,10 @@
 /*=========================================================================================
     File Name: components-modal.js
-    Description: Modals are streamlined, but flexible, dialog prompts with the minimum
+    Description: Modals are streamlined, but flexible, dialog prompts with the minimum 
 				required functionality and smart defaults.
     ----------------------------------------------------------------------------------------
-    Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
+    Item Name: Modern Admin - Clean Bootstrap 4 Dashboard HTML Template
+    Version: 1.0
     Author: Pixinvent
     Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/

@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Admin;
+
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Operations\AdminOp;
 
 class AdminController extends Controller
 {
@@ -14,7 +16,25 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        if (request()->ajax()) {
+            $data = AdminOp::_fetchAll();
+            return datatables($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($data) {
+                    return '<a class="btn btn-warning square" href="' . route('administrators.edit', $data->id) . '">
+                                <i class=" fa fa-edit"></i>
+                            </a>';
+                })
+                ->addColumn('check', function ($data) {
+                    return '<label class="pos-rel">
+                                        <input type="checkbox" class="ace" name="id[]" value="' . $data->id . '" />
+                                        <span class="lbl"></span>
+                                    </label>';
+                })
+                ->rawColumns(['action', 'check', 'admin_name'])
+                ->make(true);
+        }
+        return view('admin.admins.index');
     }
 
     /**
@@ -24,7 +44,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.admins.create');
     }
 
     /**

@@ -2,7 +2,8 @@
     File Name: maps.js
     Description: google maps
     ----------------------------------------------------------------------------------------
-    Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
+    Item Name: Modern Admin - Clean Bootstrap 4 Dashboard HTML Template
+    Version: 1.0
     Author: PIXINVENT
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
@@ -14,95 +15,82 @@ $(window).on("load", function(){
 
     // Basic Map
     // ------------------------------
-
-    map = new GMaps({
+    new GMaps({
         div: '#basic-map',
-        lat: 9.0820,
-        lng: 8.6753,
-        zoom: 7
-    });
-    map.addMarker({
-        lat: 9.0765,
-        lng: 7.3986,
-        title: 'Marker1',
-        draggable: true,
+        lat: -12.043333,
+        lng: -77.028333,
+        height: 400,
     });
 
-    // Info Window
+
+    // Map Events
     // ------------------------------
 
     map = new GMaps({
-        div: '#info-window',
-        lat: 47.4073,
-        lng: 7.7526,
-        zoom: 7
-    });
-    map.addMarker({
-        lat: 47.4073,
-        lng: 7.76,
-        title: 'Marker1',
-        infoWindow: {
-            content: '<p>Marker1</p>'
-        }
-    });
-    map.addMarker({
-        lat: 47.3769,
-        lng: 8.5417,
-        title: 'Marker2',
-        infoWindow: {
-            content: '<p>Marker2</p>'
-        }
-    });
-    map.addMarker({
-        lat: 46.9480,
-        lng: 7.4474,
-        title: 'Marker3',
-        infoWindow: {
-            content: '<p>Marker3</p>'
-        }
+        div: '#map-events',
+        zoom: 16,
+        lat: -12.043333,
+        lng: -77.028333,
+        styles: [{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#e0efef"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"hue":"#1900ff"},{"color":"#c0e8e8"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":100},{"visibility":"simplified"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"visibility":"on"},{"lightness":700}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#7dcdcd"}]}],
+        click: function(e) {
+            alert('click');
+        },
+        dragend: function(e) {
+            alert('dragend');
+        },
+
+        // If you want to show an Info Window, you must add:
+        /*infoWindow: {
+          content: '<p>HTML Content</p>'
+        }*/
     });
 
-    // Street View Markers
+
+    // Map Markers
     // ------------------------------
 
-    map = GMaps.createPanorama({
-      el: '#street-view',
-      lat : 52.201272,
-      lng: 0.118720,
+    map = new GMaps({
+        div: '#markers',
+        lat: -12.043333,
+        lng: -77.028333,
+        styles: [{"featureType":"administrative.locality","elementType":"all","stylers":[{"hue":"#2c2e33"},{"saturation":7},{"lightness":19},{"visibility":"on"}]},{"featureType":"landscape","elementType":"all","stylers":[{"hue":"#ffffff"},{"saturation":-100},{"lightness":100},{"visibility":"simplified"}]},{"featureType":"poi","elementType":"all","stylers":[{"hue":"#ffffff"},{"saturation":-100},{"lightness":100},{"visibility":"off"}]},{"featureType":"road","elementType":"geometry","stylers":[{"hue":"#bbc0c4"},{"saturation":-93},{"lightness":31},{"visibility":"simplified"}]},{"featureType":"road","elementType":"labels","stylers":[{"hue":"#bbc0c4"},{"saturation":-93},{"lightness":31},{"visibility":"on"}]},{"featureType":"road.arterial","elementType":"labels","stylers":[{"hue":"#bbc0c4"},{"saturation":-93},{"lightness":-2},{"visibility":"simplified"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"hue":"#e9ebed"},{"saturation":-90},{"lightness":-8},{"visibility":"simplified"}]},{"featureType":"transit","elementType":"all","stylers":[{"hue":"#e9ebed"},{"saturation":10},{"lightness":69},{"visibility":"on"}]},{"featureType":"water","elementType":"all","stylers":[{"hue":"#e9ebed"},{"saturation":-78},{"lightness":67},{"visibility":"simplified"}]}]
     });
-
-    // Random Value for street heading
-
-    $(".street-heading").on("click", function(){
-      map = GMaps.createPanorama({
-        el: '#street-view',
-        lat : 52.201272,
-        lng: 0.118720,
-        pov: { heading: Math.random() * 360, pitch: 5 }
-      });
+    map.addMarker({
+        lat: -12.043333,
+        lng: -77.03,
+        title: 'Lima',
+        details: {
+            database_id: 42,
+            author: 'HPNeo'
+        },
+        click: function(e){
+            if(console.log)
+                console.log(e);
+            alert('You clicked in this marker');
+        }
     });
-
-    // Random Value for street Pitch
-
-    $(".street-pitch").on("click", function(){
-      map = GMaps.createPanorama({
-        el: '#street-view',
-        lat : 52.201272,
-        lng: 0.118720,
-        pov: { heading: 20, pitch: Math.random() * 180 - 90 }
-      });
-    });
-
-    // Random Value for both street heading and street pitch
-
-    $(".street-both").on("click", function(){
-      map = GMaps.createPanorama({
-        el: '#street-view',
-        lat : 52.201272,
-        lng: 0.118720,
-        pov: { heading: Math.random() * 360, pitch: Math.random() * 180 - 90 }
-      });
+    map.addMarker({
+        lat: -12.042,
+        lng: -77.028333,
+        title: 'Marker with InfoWindow',
+        infoWindow: {
+            content: '<p>HTML Content</p>'
+        }
     });
 
 });
 
+// Resize Map
+// ------------------------------
+
+/*$(function () {
+
+    // Resize map on menu width change and window resize
+    $(window).on('resize', resize);
+    $(".menu-toggle").on('click', resize);
+
+    // Resize function
+    function resize() {
+        drawLine();
+    }
+});*/

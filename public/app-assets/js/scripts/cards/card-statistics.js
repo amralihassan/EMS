@@ -1,533 +1,323 @@
 /*=========================================================================================
     File Name: card-statistics.js
-    Description: Card-statistics page content with Apexchart Examples
+    Description: intialize advance card statistics
     ----------------------------------------------------------------------------------------
-    Item Name: Vuexy  - Vuejs, HTML & Laravel Admin Dashboard Template
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
+    Item Name: Modern Admin - Clean Bootstrap 4 Dashboard HTML Template
+    Version: 1.0
+    Author: Pixinvent
+    Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
+(function(window, document, $) {
+    'use strict';
 
-$(window).on("load", function(){
+    /*****************************************************
+    *               Grouped Card Statistics              *
+    *****************************************************/
+    var rtl = false;
+    if($('html').data('textdirection') == 'rtl')
+        rtl = true;
 
-  var $primary = '#7367F0';
-  var $success = '#28C76F';
-  var $danger = '#EA5455';
-  var $warning = '#FF9F43';
-  var $primary_light = '#A9A2F6';
-  var $success_light = '#55DD92';
-  var $warning_light = '#ffc085';
+    $(".knob").knob({
+        rtl: rtl,
+        draw: function() {
+            var ele = this.$;
+            var style = ele.attr('style');
+            style = style.replace("bold", "normal");
+            var fontSize = parseInt(ele.css('font-size'), 10);
+            var updateFontSize = Math.ceil(fontSize * 1.65);
+            style = style.replace("bold", "normal");
+            style = style + "font-size: " +updateFontSize+"px;";
+            var icon = ele.attr('data-knob-icon');
+            ele.hide();
+            $('<i class="knob-center-icon '+icon+'"></i>').insertAfter(ele).attr('style',style);
 
-    // Subscribed Gained Chart
-    // ----------------------------------
+            // "tron" case
+            if (this.$.data('skin') == 'tron') {
 
-    var gainedChartoptions = {
-        chart: {
-            height: 100,
-            type: 'area',
-            toolbar:{
-              show: false,
-            },
-            sparkline: {
-                enabled: true
-            },
-            grid: {
-                show: false,
-                padding: {
-                    left: 0,
-                    right: 0
+                this.cursorExt = 0.3;
+
+                var a = this.arc(this.cv), // Arc
+                    pa, // Previous arc
+                    r = 1;
+
+                this.g.lineWidth = this.lineWidth;
+
+                if (this.o.displayPrevious) {
+                    pa = this.arc(this.v);
+                    this.g.beginPath();
+                    this.g.strokeStyle = this.pColor;
+                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, pa.s, pa.e, pa.d);
+                    this.g.stroke();
                 }
-            },
-        },
-        colors: [$primary],
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            curve: 'smooth',
-            width: 2.5
-        },
-        fill: {
-            type: 'gradient',
-            gradient: {
-                shadeIntensity: 0.9,
-                opacityFrom: 0.7,
-                opacityTo: 0.5,
-                stops: [0, 80, 100]
+
+                this.g.beginPath();
+                this.g.strokeStyle = r ? this.o.fgColor : this.fgColor;
+                this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, a.s, a.e, a.d);
+                this.g.stroke();
+
+                this.g.lineWidth = 2;
+                this.g.beginPath();
+                this.g.strokeStyle = this.o.fgColor;
+                this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
+                this.g.stroke();
+
+                return false;
             }
-        },
-        series: [{
-            name: 'Subscribers',
-            data: [28, 40, 36, 52, 38, 60, 55]
-        }],
+        }
+    });
 
-        xaxis: {
-          labels: {
-            show: false,
-          },
-          axisBorder: {
-            show: false,
-          }
-        },
-        yaxis: [{
-            y: 0,
-            offsetX: 0,
-            offsetY: 0,
-            padding: { left: 0, right: 0 },
-        }],
-        tooltip: {
-            x: { show: false }
-        },
-    }
+    /******************************************
+    *               Total Likes               *
+    ******************************************/
+    Morris.Area({
+        element: 'morris-likes',
+        data: [{y: '1', a: 14, }, {y: '2', a: 12 }, {y: '3', a: 4 }, {y: '4', a: 9 }, {y: '5', a: 3 }, {y: '6', a: 6 }, {y: '7', a: 11 }, {y: '8', a: 10 }, {y: '9', a: 13 }, {y: '10', a: 9 }, {y: '11', a: 14 },{y: '12', a: 11 }, {y: '13', a: 16 }, {y: '14', a: 20 }, {y: '15', a: 15 }],
+        xkey: 'y',
+        ykeys: ['a'],
+        labels: ['Likes'],
+        axes: false,
+        grid: false,
+        behaveLikeLine: true,
+        ymax: 20,
+        resize: true,
+        pointSize: 0,
+        smooth: true,
+        numLines: 6,
+        lineWidth: 2,
+        fillOpacity: 0.1,
+        lineColors: ['#28D094'],
+        hideHover: true,
+        hoverCallback: function (index, options, content, row) {
+            return "";
+        }
+    });
 
-    var gainedChart = new ApexCharts(
-        document.querySelector("#line-area-chart-1"),
-        gainedChartoptions
-    );
+    /*********************************************
+    *               Total Comments               *
+    *********************************************/
+    Morris.Area({
+        element: 'morris-comments',
+        data: [{y: '1', a: 15, }, {y: '2', a: 20 }, {y: '3', a: 16 }, {y: '4', a: 11 }, {y: '5', a: 14 }, {y: '6', a: 9 }, {y: '7', a: 13 }, {y: '8', a: 10 }, {y: '9', a: 11 }, {y: '10', a: 6 }, {y: '11', a: 3 },{y: '12', a: 9 }, {y: '13', a: 4 }, {y: '14', a: 12 }, {y: '15', a: 14 }],
+        xkey: 'y',
+        ykeys: ['a'],
+        labels: ['Comments'],
+        axes: false,
+        grid: false,
+        behaveLikeLine: true,
+        ymax: 20,
+        resize: true,
+        pointSize: 0,
+        smooth: true,
+        numLines: 6,
+        lineWidth: 2,
+        fillOpacity: 0.1,
+        lineColors: ['#FF7D4D'],
+        hideHover: true,
+        hoverCallback: function (index, options, content, row) {
+            return "";
+        }
+    });
 
-    gainedChart.render();
+    /******************************************
+    *               Total Views               *
+    ******************************************/
+    Morris.Area({
+        element: 'morris-views',
+        data: [{y: '1', a: 14, }, {y: '2', a: 12 }, {y: '3', a: 4 }, {y: '4', a: 9 }, {y: '5', a: 3 }, {y: '6', a: 6 }, {y: '7', a: 11 }, {y: '8', a: 10 }, {y: '9', a: 13 }, {y: '10', a: 9 }, {y: '11', a: 14 },{y: '12', a: 11 }, {y: '13', a: 16 }, {y: '14', a: 20 }, {y: '15', a: 15 }],
+        xkey: 'y',
+        ykeys: ['a'],
+        labels: ['Views'],
+        axes: false,
+        grid: false,
+        behaveLikeLine: true,
+        ymax: 20,
+        resize: true,
+        pointSize: 0,
+        smooth: true,
+        numLines: 6,
+        lineWidth: 2,
+        fillOpacity: 0.1,
+        lineColors: ['#FF4558'],
+        hideHover: true,
+        hoverCallback: function (index, options, content, row) {
+            return "";
+        }
+    });
 
+    /************************************************
+    *               Sparkline Charts                *
+    ************************************************/
 
-
-    // Revenue Generated Chart
-    // ----------------------------------
-
-    var revenueChartoptions = {
-        chart: {
-            height: 100,
-            type: 'area',
-            toolbar:{
-              show: false,
-            },
-            sparkline: {
-                enabled: true
-            },
-            grid: {
-                show: false,
-                padding: {
-                    left: 0,
-                    right: 0
-                }
-            },
-        },
-        colors: [$success],
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            curve: 'smooth',
-            width: 2.5
-        },
-        fill: {
-            type: 'gradient',
-            gradient: {
-                shadeIntensity: 0.9,
-                opacityFrom: 0.7,
-                opacityTo: 0.5,
-                stops: [0, 80, 100]
-            }
-        },
-        series: [{
-            name: 'Revenue',
-            data: [350, 275, 400, 300, 350, 300, 450]
-        }],
-
-        xaxis: {
-          labels: {
-            show: false,
-          },
-          axisBorder: {
-            show: false,
-          }
-        },
-        yaxis: [{
-            y: 0,
-            offsetX: 0,
-            offsetY: 0,
-            padding: { left: 0, right: 0 },
-        }],
-        tooltip: {
-            x: { show: false }
-        },
-    }
-
-    var revenueChart = new ApexCharts(
-        document.querySelector("#line-area-chart-2"),
-        revenueChartoptions
-    );
-
-    revenueChart.render();
-
-
-    // Quaterly Sales Chart
-    // ----------------------------------
-
-    var salesChartoptions = {
-        chart: {
-            height: 100,
-            type: 'area',
-            toolbar:{
-              show: false,
-            },
-            sparkline: {
-                enabled: true
-            },
-            grid: {
-                show: false,
-                padding: {
-                    left: 0,
-                    right: 0
-                }
-            },
-        },
-        colors: [$danger],
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            curve: 'smooth',
-            width: 2.5
-        },
-        fill: {
-            type: 'gradient',
-            gradient: {
-                shadeIntensity: 0.9,
-                opacityFrom: 0.7,
-                opacityTo: 0.5,
-                stops: [0, 80, 100]
-            }
-        },
-        series: [{
-            name: 'Sales',
-            data: [10, 15, 7, 12, 3, 16]
-        }],
-
-        xaxis: {
-          labels: {
-            show: false,
-          },
-          axisBorder: {
-            show: false,
-          }
-        },
-        yaxis: [{
-            y: 0,
-            offsetX: 0,
-            offsetY: 0,
-            padding: { left: 0, right: 0 },
-        }],
-        tooltip: {
-            x: { show: false }
-        },
-    }
-
-    var salesChart = new ApexCharts(
-        document.querySelector("#line-area-chart-3"),
-        salesChartoptions
-    );
-
-    salesChart.render();
-
-    // Order Received Chart
-    // ----------------------------------
-
-    var orderChartoptions = {
-        chart: {
-            height: 100,
-            type: 'area',
-            toolbar:{
-              show: false,
-            },
-            sparkline: {
-                enabled: true
-            },
-            grid: {
-                show: false,
-                padding: {
-                    left: 0,
-                    right: 0
-                }
-            },
-        },
-        colors: [$warning],
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            curve: 'smooth',
-            width: 2.5
-        },
-        fill: {
-            type: 'gradient',
-            gradient: {
-                shadeIntensity: 0.9,
-                opacityFrom: 0.7,
-                opacityTo: 0.5,
-                stops: [0, 80, 100]
-            }
-        },
-        series: [{
-            name: 'Orders',
-            data: [10, 15, 8, 15, 7, 12, 8]
-        }],
-
-        xaxis: {
-          labels: {
-            show: false,
-          },
-          axisBorder: {
-            show: false,
-          }
-        },
-        yaxis: [{
-            y: 0,
-            offsetX: 0,
-            offsetY: 0,
-            padding: { left: 0, right: 0 },
-        }],
-        tooltip: {
-            x: { show: false }
-        },
-    }
-
-    var orderChart = new ApexCharts(
-        document.querySelector("#line-area-chart-4"),
-        orderChartoptions
-    );
-
-    orderChart.render();
-
-
-    // Site Traffic Chart
-    // ----------------------------------
-
-    var trafficChartoptions = {
-        chart: {
-            height: 100,
+    var sparkLineDraw = function() {
+        /******************
+        *   Line Charts   *
+        ******************/
+        // Total Cost
+        $("#sp-line-total-cost").sparkline([14,12,4,9,3,6,11,10,13,9,14,11,16,20,15], {
             type: 'line',
-            dropShadow: {
-                enabled: true,
-                top: 5,
-                left: 0,
-                blur: 4,
-                opacity: 0.10,
-            },
-            toolbar:{
-              show: false,
-            },
-            sparkline: {
-                enabled: true
-            },
-            grid: {
-                show: false,
-                padding: {
-                    left: 0,
-                    right: 0
-                }
-            },
-        },
-        colors: [$primary],
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            curve: 'smooth',
-            width: 5
-        },
-        fill: {
-            type: 'gradient',
-            gradient: {
-                shadeIntensity: 1,
-                gradientToColors: [$primary_light],
-                opacityFrom: 1,
-                opacityTo: 1,
-                stops: [0, 100, 100, 100]
-            }
-        },
-        series: [{
-            name: 'Traffic Rate',
-            data: [150, 200, 125, 225, 200, 250]
-        }],
+            width: '100%',
+            height: '100px',
+            lineColor: '#FF9149',
+            fillColor: '#FF9149',
+            spotColor: '',
+            minSpotColor: '',
+            maxSpotColor: '',
+            highlightSpotColor: '',
+            highlightLineColor: '',
+            chartRangeMin: 0,
+            chartRangeMax: 20,
+        });
 
-        xaxis: {
-          labels: {
-            show: false,
-          },
-          axisBorder: {
-            show: false,
-          }
-        },
-        yaxis: [{
-            y: 0,
-            offsetX: 0,
-            offsetY: 0,
-            padding: { left: 0, right: 0 },
-        }],
-        tooltip: {
-            x: { show: false }
-        },
-    }
-
-    var trafficChart = new ApexCharts(
-        document.querySelector("#line-area-chart-5"),
-        trafficChartoptions
-    );
-
-    trafficChart.render();
-
-
-    // Active Users Chart
-    // ----------------------------------
-
-    var userChartoptions = {
-        chart: {
-            height: 100,
+        // Total Sales
+        $("#sp-line-total-sales").sparkline([14,12,4,9,3,6,11,10,13,9,14,11,16,20,15], {
             type: 'line',
-            dropShadow: {
-                enabled: true,
-                top: 5,
-                left: 0,
-                blur: 4,
-                opacity: 0.10,
-            },
-            toolbar:{
-              show: false,
-            },
-            sparkline: {
-                enabled: true
-            },
-            grid: {
-                show: false,
-                padding: {
-                    left: 0,
-                    right: 0
-                }
-            },
-        },
-        colors: [$success],
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            curve: 'smooth',
-            width: 5
-        },
-        fill: {
-            type: 'gradient',
-            gradient: {
-                shadeIntensity: 1,
-                gradientToColors: [$success_light],
-                opacityFrom: 1,
-                opacityTo: 1,
-                stops: [0, 100, 100, 100]
-            }
-        },
-        series: [{
-            name: 'Active Users',
-            data: [750, 1000, 900, 1250, 1000, 1200, 1100]
-        }],
+            width: '100%',
+            height: '100px',
+            lineColor: '#28D094',
+            fillColor: '#28D094',
+            spotColor: '',
+            minSpotColor: '',
+            maxSpotColor: '',
+            highlightSpotColor: '',
+            highlightLineColor: '',
+            chartRangeMin: 0,
+            chartRangeMax: 20,
+        });
 
-        xaxis: {
-          labels: {
-            show: false,
-          },
-          axisBorder: {
-            show: false,
-          }
-        },
-        yaxis: [{
-            y: 0,
-            offsetX: 0,
-            offsetY: 0,
-            padding: { left: 0, right: 0 },
-        }],
-        tooltip: {
-            x: { show: false }
-        },
-    }
-
-    var userChart = new ApexCharts(
-        document.querySelector("#line-area-chart-6"),
-        userChartoptions
-    );
-
-    userChart.render();
-
-
-    // News Letter Chart
-    // ----------------------------------
-
-    var newsletterChartoptions = {
-        chart: {
-            height: 100,
+        // Total Revenue
+        $("#sp-line-total-revenue").sparkline([14,12,4,9,3,6,11,10,13,9,14,11,16,20,15], {
             type: 'line',
-            dropShadow: {
-                enabled: true,
-                top: 5,
-                left: 0,
-                blur: 4,
-                opacity: 0.10,
-            },
-            toolbar:{
-              show: false,
-            },
-            sparkline: {
-                enabled: true
-            },
-            grid: {
-                show: false,
-                padding: {
-                    left: 0,
-                    right: 0
-                }
-            },
-        },
-        colors: [$warning],
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            curve: 'smooth',
-            width: 5
-        },
-        fill: {
-            type: 'gradient',
-            gradient: {
-                shadeIntensity: 1,
-                gradientToColors: [$warning_light],
-                opacityFrom: 1,
-                opacityTo: 1,
-                stops: [0, 100, 100, 100]
-            }
-        },
-        series: [{
-            name: 'Newsletter',
-            data: [365, 390, 365, 400, 375, 400]
-        }],
+            width: '100%',
+            height: '100px',
+            lineColor: '#FF4961',
+            fillColor: '#FF4961',
+            spotColor: '',
+            minSpotColor: '',
+            maxSpotColor: '',
+            highlightSpotColor: '',
+            highlightLineColor: '',
+            chartRangeMin: 0,
+            chartRangeMax: 20,
+        });
 
-        xaxis: {
-          labels: {
-            show: false,
-          },
-          axisBorder: {
-            show: false,
-          }
-        },
-        yaxis: [{
-            y: 0,
-            offsetX: 0,
-            offsetY: 0,
-            padding: { left: 0, right: 0 },
-        }],
-        tooltip: {
-            x: { show: false }
-        },
-    }
+        /*****************
+        *   Bar Charts   *
+        *****************/
+        $("#sp-bar-total-cost").sparkline([5,6,7,8,9,10,12,13,15,14,13,12,10,9,8,10,12,14,15,16,17,14,12,11,10,8], {
+            type: 'bar',
+            width: '100%',
+            height: '30px',
+            barWidth: 2,
+            barSpacing: 4,
+            barColor: '#FF9149'
+        });
 
-    var newsletterChart = new ApexCharts(
-        document.querySelector("#line-area-chart-7"),
-        newsletterChartoptions
-    );
+        $("#sp-bar-total-sales").sparkline([5,6,7,8,9,10,12,13,15,14,13,12,10,9,8,10,12,14,15,16,17,14,12,11,10,8], {
+            type: 'bar',
+            width: '100%',
+            height: '30px',
+            barWidth: 2,
+            barSpacing: 4,
+            barColor: '#28D094'
+        });
 
-    newsletterChart.render();
+        $("#sp-bar-total-revenue").sparkline([5,6,7,8,9,10,12,13,15,14,13,12,10,9,8,10,12,14,15,16,17,14,12,11,10,8], {
+            type: 'bar',
+            width: '100%',
+            height: '30px',
+            barWidth: 2,
+            barSpacing: 4,
+            barColor: '#FF4961'
+        });
 
-});
+        /*************************
+        *   Stacked Bar Charts   *
+        *************************/
+        $("#sp-stacked-bar-total-cost").sparkline([ [8,10], [12,8], [9,14], [8,11], [10,13], [7,11], [8,14], [9,12], [10,11], [12,14], [8,12], [9,12], [9,14] ], {
+            type: 'bar',
+            width: '100%',
+            height: '30px',
+            barWidth: 4,
+            barSpacing: 6,
+            stackedBarColor: ['#4CAF50', '#FFEB3B']
+        });
+
+        $("#sp-stacked-bar-total-sales").sparkline([ [8,10], [12,8], [9,14], [8,11], [10,13], [7,11], [8,14], [9,12], [10,11], [12,14], [8,12], [9,12], [9,14] ], {
+            type: 'bar',
+            width: '100%',
+            height: '30px',
+            barWidth: 4,
+            barSpacing: 6,
+            stackedBarColor: ['#FF5722', '#009688']
+        });
+
+        $("#sp-stacked-bar-total-revenue").sparkline([ [8,10], [12,8], [9,14], [8,11], [10,13], [7,11], [8,14], [9,12], [10,11], [12,14], [8,12], [9,12], [9,14] ], {
+            type: 'bar',
+            width: '100%',
+            height: '30px',
+            barWidth: 4,
+            barSpacing: 6,
+            stackedBarColor: ['#E91E63', '#00BCD4']
+        });
+
+        /**********************
+        *   Tristate Charts   *
+        **********************/
+        $("#sp-tristate-bar-total-cost").sparkline([1,1,0,1,-1,-1,1,-1,0,0,1,1,0,-1,1,-1], {
+            type: 'tristate',
+            height: '30',
+            posBarColor: '#ffeb3b',
+            negBarColor: '#4caf50',
+            barWidth: 4,
+            barSpacing: 5,
+            zeroAxis: false
+        });
+
+        $("#sp-tristate-bar-total-sales").sparkline([1,1,0,1,-1,-1,1,-1,0,0,1,1,0,-1,1,-1], {
+            type: 'tristate',
+            height: '30',
+            posBarColor: '#009688',
+            negBarColor: '#FF5722',
+            barWidth: 4,
+            barSpacing: 5,
+            zeroAxis: false
+        });
+
+        $("#sp-tristate-bar-total-revenue").sparkline([1,1,0,1,-1,-1,1,-1,0,0,1,1,0,-1,1,-1], {
+            type: 'tristate',
+            height: '30',
+            posBarColor: '#00BCD4',
+            negBarColor: '#E91E63',
+            barWidth: 4,
+            barSpacing: 5,
+            zeroAxis: false
+        });
+
+        // Total Revenue
+        $("#sp-line-total-profit").sparkline([14,12,4,9,3,6,11,10,13,9,14,11,16,20,15], {
+            type: 'line',
+            width: '100%',
+            height: '50px',
+            lineColor: '#E91E63',
+            fillColor: '',
+            spotColor: '',
+            minSpotColor: '',
+            maxSpotColor: '',
+            highlightSpotColor: '',
+            highlightLineColor: '',
+            chartRangeMin: 0,
+            chartRangeMax: 20,
+        });
+    };
+
+    var sparkResize;
+
+    $(window).resize(function(e) {
+        clearTimeout(sparkResize);
+        sparkResize = setTimeout(sparkLineDraw, 500);
+    });
+    sparkLineDraw();
+
+
+
+})(window, document, jQuery);

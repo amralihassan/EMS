@@ -41,4 +41,9 @@ class Admin extends Authenticatable
     {
         return 'username';
     }
+
+    public function getAdminNameAttribute()
+    {
+        return session('lang') == 'ar' ? $this->ar_name : $this->en_name;
+    }
 }
