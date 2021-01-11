@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Operations\AdminOp;
+use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -18,23 +18,31 @@ class AdminController extends Controller
     {
         if (request()->ajax()) {
             $data = AdminOp::_fetchAll();
-            return datatables($data)
-                ->addIndexColumn()
-                ->addColumn('action', function ($data) {
-                    return '<a class="btn btn-warning square" href="' . route('administrators.edit', $data->id) . '">
-                                <i class=" fa fa-edit"></i>
-                            </a>';
-                })
-                ->addColumn('check', function ($data) {
-                    return '<label class="pos-rel">
-                                        <input type="checkbox" class="ace" name="id[]" value="' . $data->id . '" />
-                                        <span class="lbl"></span>
-                                    </label>';
-                })
-                ->rawColumns(['action', 'check', 'admin_name'])
-                ->make(true);
+            return $this->dataTable($data);
         }
         return view('admin.admins.index');
+    }
+
+    private function dataTable($data)
+    {
+        return datatables($data)
+            ->addIndexColumn()
+            ->addColumn('action', function ($data) {
+                return '<a class="btn btn-warning btn-sm" href="' . route('administrators.edit', $data->id) . '">
+                        <i class="la la-edit"></i>
+                    </a>';
+            })
+            ->addColumn('admin_name', function ($data) {
+                return $data->admin_name;
+            })
+            ->addColumn('check', function ($data) {
+                return '<label class="pos-rel">
+                                <input type="checkbox" class="ace" name="id[]" value="' . $data->id . '" />
+                                <span class="lbl"></span>
+                            </label>';
+            })
+            ->rawColumns(['action', 'check', 'admin_name'])
+            ->make(true);
     }
 
     /**
@@ -44,7 +52,9 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('admin.admins.create');
+        $admin = new Admin;
+        $active = true;
+        return view('admin.admins.create', compact('admin', 'active'));
     }
 
     /**
@@ -55,18 +65,9 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Admin $admin)
-    {
-        //
+        AdminOp::_store($request);
+        toastr()->success(trans('local.saved_success'));
+        return redirect()->route('administrators.index');
     }
 
     /**
@@ -75,9 +76,11 @@ class AdminController extends Controller
      * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function edit(Admin $admin)
+    public function edit($id)
     {
-        //
+        $admin = AdminOp::_fetchById($id);
+        $active = false;
+        return view('admin.admins.edit', compact('admin', 'active'));
     }
 
     /**
@@ -87,9 +90,11 @@ class AdminController extends Controller
      * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request, $id)
     {
-        //
+        AdminOp::_update($request, $id);
+        toastr()->success(trans('local.updated_success'));
+        return redirect()->route('administrators.index');
     }
 
     /**
@@ -98,8 +103,13 @@ class AdminController extends Controller
      * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Admin $admin)
+    public function destroy()
     {
-        //
+        if (request()->ajax()) {
+            if (request()->has('id')) {
+                $status = AdminOp::_destroy(request('id'));
+            }
+        }
+        return response(['status' => $status]);
     }
 }

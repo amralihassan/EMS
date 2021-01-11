@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -11,6 +12,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Http\Models\Entities\User::class)->create();
+        factory(Admin::class)->create();
     }
 }

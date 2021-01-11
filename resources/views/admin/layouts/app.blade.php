@@ -16,8 +16,8 @@
   rel="stylesheet">
   <link href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome.min.css"
   rel="stylesheet">
-
-
+  @yield('styles')
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
   @php
     $css_path = session('lang') == 'ar' ? 'app-assets/css-rtl/' : 'app-assets/css/';
   @endphp
@@ -33,7 +33,7 @@
   <!-- END Page Level CSS-->
   <!-- BEGIN Custom CSS-->
   {{-- animation --}}
-
+  @toastr_css
   <link rel="stylesheet" type="text/css" href="{{asset('assets/css/animsition.min.css')}}">
 
   @if (session('lang') == 'ar')
@@ -62,10 +62,16 @@ data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
   </div>
   {{-- footer --}}
 
+  @include('sweetalert::alert')
   <!-- BEGIN VENDOR JS-->
   <script src="{{asset('app-assets/vendors/js/vendors.min.js')}}" type="text/javascript"></script>
   <!-- BEGIN VENDOR JS-->
   <!-- BEGIN MODERN JS-->
+
+  {{-- sweet alert --}}
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
+
   <script src="{{asset('app-assets/js/core/app-menu.js')}}" type="text/javascript"></script>
   <script src="{{asset('app-assets/js/core/app.js')}}" type="text/javascript"></script>
   <script src="{{asset('app-assets/js/scripts/customizer.js')}}" type="text/javascript"></script>

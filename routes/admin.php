@@ -25,5 +25,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
         // MANAGE ADMINISTRATORS
         Route::resource('/administrators', 'AdminController')->except('destroy', 'show');
+        Route::post('/administrators/destroy', 'AdminController@destroy')->name('administrators.destroy');
     });
 });

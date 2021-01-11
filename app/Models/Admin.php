@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -16,7 +15,7 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'ar_name', 'en_name', 'email', 'password', 'lang', 'image_profile', 'status', 'username'
+        'ar_name', 'en_name', 'email', 'password', 'lang', 'image_profile', 'status', 'username',
     ];
 
     /**
@@ -45,5 +44,10 @@ class Admin extends Authenticatable
     public function getAdminNameAttribute()
     {
         return session('lang') == 'ar' ? $this->ar_name : $this->en_name;
+    }
+
+    public function getStatusAttribute($value)
+    {
+        return $value == 'enable' ? trans('local.enable') : trans('local.disable');
     }
 }
