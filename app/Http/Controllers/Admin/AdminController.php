@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminRequest;
 use App\Models\Admin;
 use App\Models\Operations\AdminOp;
-use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -63,7 +63,7 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AdminRequest $request)
     {
         AdminOp::_store($request);
         toastr()->success(trans('local.saved_success'));
@@ -90,7 +90,7 @@ class AdminController extends Controller
      * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AdminRequest $request, $id)
     {
         AdminOp::_update($request, $id);
         toastr()->success(trans('local.updated_success'));

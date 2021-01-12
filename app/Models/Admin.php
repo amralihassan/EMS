@@ -50,4 +50,9 @@ class Admin extends Authenticatable
     {
         return $value == 'enable' ? trans('local.enable') : trans('local.disable');
     }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
 }

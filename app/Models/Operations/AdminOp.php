@@ -42,4 +42,11 @@ class AdminOp extends Admin implements IMainOperations, IFetchData
         Admin::where('id', authInfo()->id)->update(['lang' => $lang]);
         return true;
     }
+
+    public static function updatePassword($request)
+    {
+        $admin = Admin::findOrFail(authInfo()->id);
+        $admin->update($request->only('password'));
+        return true;
+    }
 }
