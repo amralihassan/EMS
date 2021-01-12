@@ -5,6 +5,7 @@ namespace App\Models\Operations;
 use App\Interfaces\IFetchData;
 use App\Interfaces\IMainOperations;
 use App\Models\Admin;
+use Intervention\Image\Facades\Image;
 
 class AdminOp extends Admin implements IMainOperations, IFetchData
 {
@@ -20,7 +21,15 @@ class AdminOp extends Admin implements IMainOperations, IFetchData
 
     public static function _store($request)
     {
-        Admin::firstOrCreate($request->only(['en_name', 'ar_name', 'username', 'email', 'password', 'lang']));
+        $admin = Admin::firstOrCreate($request->only(['en_name', 'ar_name', 'username', 'email', 'password', 'lang']));
+
+        if ($request->hasFile('image_profile')) {
+            $image = $request->file('image_profile');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            Image::make($image)->resize(46, 46)->save(public_path('storage/admins/' . $filename));
+            $admin->image_profile = $filename;
+            $admin->save();
+        }
         return true;
     }
 
@@ -28,6 +37,15 @@ class AdminOp extends Admin implements IMainOperations, IFetchData
     {
         $admin = Admin::findOrFail($id);
         $admin->update($request->except('_token', '_method', '/admin/admin/profile'));
+
+        if ($request->hasFile('image_profile')) {
+            $image = $request->file('image_profile');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            Image::make($image)->resize(46, 46)->save(public_path('storage/admins/' . $filename));
+            $admin->image_profile = $filename;
+            $admin->save();
+        }
+        return true;
     }
 
     public static function _destroy($request)
@@ -49,4 +67,5 @@ class AdminOp extends Admin implements IMainOperations, IFetchData
         $admin->update($request->only('password'));
         return true;
     }
+
 }

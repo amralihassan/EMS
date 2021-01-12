@@ -24,11 +24,11 @@ class AdminRequest extends FormRequest
      */
     public function rules()
     {
-        $id = request()->segment(3);
+        $id = request()->segment(3) == null ? authInfo()->id : request()->segment(3);
 
         return [
-            'ar_name' => ['required', 'min:5', 'max:15'],
-            'en_name' => ['required', 'min:5', 'max:15'],
+            'ar_name' => ['required', 'min:2', 'max:15'],
+            'en_name' => ['required', 'min:2', 'max:15'],
             'email' => ['required', 'email', 'max:50', Rule::unique('admins')->ignore($id)],
             'password' => ['required', 'sometimes'],
             'confirm_password' => ['required', 'same:password', 'sometimes'],
@@ -40,10 +40,10 @@ class AdminRequest extends FormRequest
     {
         return [
             'ar_name.required' => trans('local.ar_name_required'),
-            'ar_name.min' => trans('local.ar_name_min_5'),
+            'ar_name.min' => trans('local.ar_name_min_2'),
             'ar_name.max' => trans('local.ar_name_max_15'),
             'en_name.required' => trans('local.en_name_required'),
-            'en_name.min' => trans('local.en_name_min_5'),
+            'en_name.min' => trans('local.en_name_min_2'),
             'en_name.max' => trans('local.en_name_max_15'),
             'email.required' => trans('local.email_required'),
             'email.unique' => trans('local.email_unique'),

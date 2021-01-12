@@ -30,5 +30,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         // CHANGE PASSWORD
         Route::get('/change-password','ProfileController@changePassword')->name('change.password');
         Route::post('/change-password','ProfileController@updatePassword')->name('update.password');
+
+        // PROFILE
+        Route::get('/profile','ProfileController@profile')->name('profile');
+        Route::post('/profile','ProfileController@updateProfile')->name('update.profile');
     });
 });

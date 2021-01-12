@@ -51,7 +51,15 @@
         </div>
     </div>
 </div>
-
+<div class="col-lg-3 col-md-6">
+    <div class="form-group row">
+        <label>{{ trans('local.profile_image') }}</label>
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="inputGroupFile01" name="image_profile">
+            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+        </div>
+    </div>
+</div>
 <h4 class="form-section">{{ trans('local.account_info') }}</h4>
 <div class="row">
     <div class="col-md-4">

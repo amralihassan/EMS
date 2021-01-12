@@ -43,7 +43,7 @@
                     </div>
                 </div>
               <div class="form-actions">
-                <button type="button" class="btn btn-warning mr-1" onclick="location.href='{{route('administrators.index')}}';">
+                <button type="button" class="btn btn-warning mr-1" onclick="location.href='{{route('dashboard')}}';">
                   <i class="ft-x"></i> {{ trans('local.cancel') }}
                 </button>
                 <button type="submit" class="btn btn-primary">

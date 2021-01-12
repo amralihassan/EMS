@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminRequest;
 use App\Http\Requests\PasswordRequest;
 use App\Models\Operations\AdminOp;
-use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
@@ -18,6 +18,19 @@ class ProfileController extends Controller
     {
         AdminOp::updatePassword($request);
         toastr()->success(trans('local.password_updated'));
+        return redirect()->back();
+    }
+
+    public function profile()
+    {
+        $admin = AdminOp::_fetchById(authInfo()->id);
+        return view('admin.admins.profile', compact('admin'));
+    }
+
+    public function updateProfile(AdminRequest $request)
+    {
+        AdminOp::_update($request, authInfo()->id);
+        toastr()->success(trans('local.updated_success'));
         return redirect()->back();
     }
 }

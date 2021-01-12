@@ -55,4 +55,13 @@ class Admin extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($value);
     }
+
+    public function getProfileImageAttribute()
+    {
+        if (!empty($this->image_profile)) {
+            return 'storage/admins/'.authInfo()->image_profile;
+        }else{
+            return 'storage/admins/profile.png';
+        }
+    }
 }
