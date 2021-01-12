@@ -11,7 +11,7 @@ class ProfileController extends Controller
 {
     public function changePassword()
     {
-        return view('admin.admins.change-password');
+        return view('admin.profile.change-password');
     }
 
     public function updatePassword(PasswordRequest $request)
@@ -24,7 +24,7 @@ class ProfileController extends Controller
     public function profile()
     {
         $admin = AdminOp::_fetchById(authInfo()->id);
-        return view('admin.admins.profile', compact('admin'));
+        return view('admin.profile.profile', compact('admin'));
     }
 
     public function updateProfile(AdminRequest $request)

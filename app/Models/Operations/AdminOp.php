@@ -24,6 +24,11 @@ class AdminOp extends Admin implements IMainOperations, IFetchData
         $admin = Admin::firstOrCreate($request->only(['en_name', 'ar_name', 'username', 'email', 'password', 'lang']));
 
         if ($request->hasFile('image_profile')) {
+
+            if (file_exists('storage/admins/' . authInfo()->image_profile)) {
+                unlink('storage/admins/' . authInfo()->image_profile);
+            }
+
             $image = $request->file('image_profile');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             Image::make($image)->resize(46, 46)->save(public_path('storage/admins/' . $filename));
@@ -39,6 +44,11 @@ class AdminOp extends Admin implements IMainOperations, IFetchData
         $admin->update($request->except('_token', '_method', '/admin/admin/profile'));
 
         if ($request->hasFile('image_profile')) {
+
+            if (file_exists('storage/admins/' . authInfo()->image_profile)) {
+                unlink('storage/admins/' . authInfo()->image_profile);
+            }
+
             $image = $request->file('image_profile');
             $filename = time() . '.' . $image->getClientOriginalExtension();
             Image::make($image)->resize(46, 46)->save(public_path('storage/admins/' . $filename));

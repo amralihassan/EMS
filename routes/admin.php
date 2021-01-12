@@ -34,5 +34,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         // PROFILE
         Route::get('/profile','ProfileController@profile')->name('profile');
         Route::post('/profile','ProfileController@updateProfile')->name('update.profile');
+
+        // GENERAL SETTINGS
+        Route::get('/general-settings','GeneralSettingController@settings')->name('general.settings');
+        Route::post('/general-settings','GeneralSettingController@updateSettings')->name('update.settings');
     });
 });

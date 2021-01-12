@@ -58,6 +58,9 @@
             <input type="file" class="custom-file-input" id="inputGroupFile01" name="image_profile">
             <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
         </div>
+        @error('image_profile')
+            <span class="danger">{{$message}}</span>
+        @enderror
     </div>
 </div>
 <h4 class="form-section">{{ trans('local.account_info') }}</h4>

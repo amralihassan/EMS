@@ -33,6 +33,7 @@ class AdminRequest extends FormRequest
             'password' => ['required', 'sometimes'],
             'confirm_password' => ['required', 'same:password', 'sometimes'],
             'username' => ['required', 'sometimes', Rule::unique('admins')->ignore($id)],
+            'image_profile' => ['image','mimes:jpeg,png,jpg','max:256'],
         ];
     }
 
