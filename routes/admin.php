@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
@@ -47,8 +48,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::resource('/roles', 'RoleController')->except('destroy');
         Route::post('/roles/destroy', 'RoleController@destroy')->name('roles.destroy');
 
+        // ATTACH PERMISSION TO ROLE
         Route::post('/add-permissions','RoleController@addPermission')->name('add.permission');
 
+        // DISPLAY ACTIVITY LOGS
+        Route::get('/activities-logs','ActivityController@activities')->name('activities.logs');
+        Route::get('/activities-logs/action/{id}','ActivityController@action')->name('activities.action');
 
     });
 });

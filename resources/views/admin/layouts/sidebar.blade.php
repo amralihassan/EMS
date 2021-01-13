@@ -14,6 +14,9 @@
         @if (authInfo()->isAbleTo('view-setting'))
             <li class=" nav-item {{request()->segment(2) == 'general-settings' ? 'active':''}}"><a href="{{route('general.settings')}}"><i class="la la-gear"></i><span class="menu-title" data-i18n="nav.scrumboard.main">{{ trans('local.general_settings') }}</span></a></li>
         @endif
+
+        <li class=" nav-item {{request()->segment(2) == 'activities-logs' ? 'active':''}}"><a href="{{route('activities.logs')}}"><i class="la la-history"></i><span class="menu-title" data-i18n="nav.scrumboard.main">{{ trans('local.activities_logs') }}</span></a></li>
+
       </ul>
     </div>
   </div>

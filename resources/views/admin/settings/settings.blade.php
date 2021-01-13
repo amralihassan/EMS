@@ -216,7 +216,7 @@
                   <button type="button" class="btn btn-warning mr-1" onclick="location.href='{{route('dashboard')}}';">
                       <i class="ft-x"></i> {{ trans('local.cancel') }}
                   </button>
-                  @if (authInfo()->isAbleTo('update_setting'))
+                  @if (authInfo()->isAbleTo('update-setting'))
                         <button type="submit" class="btn btn-primary">
                           <i class="la la-check-square-o"></i> {{ trans('local.update') }}
                         </button>
@@ -227,5 +227,5 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
 @endsection

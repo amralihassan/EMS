@@ -1,5 +1,8 @@
 @extends('admin.layouts.app')
 @section('title', trans('local.add_administrative'))
+@section('styles')
+<link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/forms/icheck/icheck.css')}}">
+@endsection
 @section('content')
 <div class="content-header row">
     <div class="content-header-left col-md-6 col-12 mb-2">
@@ -23,7 +26,7 @@
           <div class="card-body">
             <form class="form" action="{{route('administrators.store')}}" method="POST" enctype="multipart/form-data">
               @csrf
-              
+
                 <div class="form-body">
                     @include('admin.admins.includes._form')
                 </div>
@@ -41,4 +44,9 @@
       </div>
     </div>
   </div>
+@endsection
+@section('script')
+<script src="{{asset('app-assets/vendors/js/forms/icheck/icheck.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('app-assets/vendors/js/forms/validation/jqBootstrapValidation.js')}}" type="text/javascript"></script>
+<script src="{{asset('app-assets/js/scripts/forms/form-login-register.js')}}" type="text/javascript"></script>
 @endsection

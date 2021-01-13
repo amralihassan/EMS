@@ -1,6 +1,12 @@
 {
     "cSpell.ignoreWords": [
+        "activitylog",
+        "authenticatable",
+        "laratrust",
         "signin",
-        "toastr"
+        "spatie",
+        "toastr",
+        "trait",
+        "user"
     ]
 }

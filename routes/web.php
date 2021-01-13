@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Spatie\Activitylog\Models\Activity;
 
 
 /**
@@ -8,3 +9,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::redirect('/','admin/dashboard');
+
+Route::get('/activity',function(){
+    return Activity::all()->last();
+});
