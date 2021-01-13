@@ -13,6 +13,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::post('/signin', 'AdminAuth@signin')->name('signin');
 
     Route::group(['middleware' => 'admin'], function () {
+        // ACCESS DENIED
+        Route::get('/access-denied','AccessDeniedController@accessDenied');
+        // logs
+        Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
         // LOGOUT
         Route::get('/logout', 'AdminAuth@logout')->name('logout');
 
@@ -38,5 +42,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         // GENERAL SETTINGS
         Route::get('/general-settings','GeneralSettingController@settings')->name('general.settings');
         Route::post('/general-settings','GeneralSettingController@updateSettings')->name('update.settings');
+
+        // ROLES
+        Route::resource('/roles', 'RoleController')->except('destroy');
+        Route::post('/roles/destroy', 'RoleController@destroy')->name('roles.destroy');
+
+        Route::post('/add-permissions','RoleController@addPermission')->name('add.permission');
+
+
     });
 });

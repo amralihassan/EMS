@@ -18,6 +18,8 @@
   rel="stylesheet">
   @yield('styles')
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+
+
   @php
     $css_path = session('lang') == 'ar' ? 'app-assets/css-rtl/' : 'app-assets/css/';
   @endphp
@@ -35,6 +37,7 @@
   {{-- animation --}}
   @toastr_css
   <link rel="stylesheet" type="text/css" href="{{asset('assets/css/animsition.min.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/forms/selects/select2.min.css')}}">
 
   @if (session('lang') == 'ar')
         <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet">
@@ -72,12 +75,15 @@ data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
 
+  <script src="{{asset('app-assets/vendors/js/forms/select/select2.full.min.js')}}" type="text/javascript"></script>
+  <script src="{{asset('app-assets/js/scripts/forms/select/form-select2.js')}}" type="text/javascript"></script>
+
+  @yield('script')
   <script src="{{asset('app-assets/js/core/app-menu.js')}}" type="text/javascript"></script>
   <script src="{{asset('app-assets/js/core/app.js')}}" type="text/javascript"></script>
   <script src="{{asset('app-assets/js/scripts/customizer.js')}}" type="text/javascript"></script>
   <!-- END MODERN JS-->
   <!-- BEGIN PAGE LEVEL JS-->
-  @yield('script')
   {{-- start animation --}}
   <script src="{{asset('assets/js/animsition.min.js')}}"></script>
   <script>

@@ -13,5 +13,8 @@ class UserSeeder extends Seeder
     public function run()
     {
         factory(Admin::class)->create();
+
+        $admin = Admin::first();
+        $admin->attachRole(1);
     }
 }

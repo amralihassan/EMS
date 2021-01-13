@@ -146,6 +146,7 @@
                 </li>
               </ul>
             </li>
+
             <li class="nav-item nav-search"><a class="nav-link nav-link-search" href="#"><i class="ficon ft-search"></i></a>
               <div class="search-input">
                 <input class="input" type="text" placeholder="Explore Modern...">
@@ -165,7 +166,10 @@
               <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item mr-3" href="{{route('profile')}}"><i class="ft-user"></i> {{ trans('local.edit_profile') }}</a>
                     <a class="dropdown-item mr-3" href="{{route('change.password')}}">{{ trans('local.change_password') }} <i class="ft-lock"></i> </a>
-                <div class="dropdown-divider"></div><a class="dropdown-item" href="{{route('logout')}}"><i class="ft-power"></i> Logout</a>
+                    @if (authInfo()->isAbleTo('view-roles'))
+                        <a class="dropdown-item mr-3" href="{{route('roles.index')}}">{{ trans('local.roles') }} <i class="ft-users"></i> </a>
+                    @endif
+                <div class="dropdown-divider"></div><a class="dropdown-item" href="{{route('logout')}}"><i class="ft-power"></i> {{trans('local.logout')}}</a>
               </div>
             </li>
 

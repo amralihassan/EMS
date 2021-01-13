@@ -18,4 +18,3 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::apiResource('/employees', 'EmployeeController');

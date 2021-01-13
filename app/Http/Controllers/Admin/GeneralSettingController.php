@@ -8,6 +8,11 @@ use App\Models\Operations\SettingOp;
 
 class GeneralSettingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view-setting', ['only' => ['settings']]);
+        $this->middleware('permission:update-setting', ['only' => ['updateSettings']]);
+    }
     public function settings()
     {
         return view('admin.settings.settings');

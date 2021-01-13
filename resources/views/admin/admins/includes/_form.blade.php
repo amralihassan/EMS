@@ -108,3 +108,17 @@
         </div>
     </div>
 @endif
+
+<h4 class="form-section">{{ trans('local.roles') }}</h4>
+<div class="row">
+    @foreach ($roles as $role)
+        <div class="col-lg-2 col-md-6">
+            <div class="form-group">
+                <fieldset>
+                    <input type="checkbox"  name="roles[]" class="chk-remember" {{in_array( $admin->id, $role->users->pluck('id')->toArray()) ? 'checked' : ''}}
+                        value="{{$role->id}}"> {{$role->display_name}}
+                </fieldset>
+            </div>
+        </div>
+    @endforeach
+</div>
