@@ -35,11 +35,11 @@ class SettingRequest extends FormRequest
             'contact1' => ['nullable', 'numeric'],
             'contact2' => ['numeric', 'nullable'],
             'contact3' => ['numeric', 'nullable'],
-            'facebook' => ['max:50', 'min:10', 'nullable'],
-            'youtube' => ['max:50', 'min:10', 'nullable'],
+            'facebook' => ['max:50', 'nullable'],
+            'youtube' => ['max:50', 'nullable'],
             'logo' => ['image', 'mimes:jpeg,png,jpg', 'max:256'],
             'icon' => ['image', 'mimes:ico'],
-            'msg_maintenance' => ['max:190', 'min:10', 'nullable'],
+            'msg_maintenance' => ['max:190', 'nullable'],
 
         ];
     }
@@ -72,11 +72,8 @@ class SettingRequest extends FormRequest
             'contact2.numeric' => trans('local.contact2_numeric'),
             'contact3.numeric' => trans('local.contact3_numeric'),
             'facebook.max' => trans('local.facebook_max'),
-            'facebook.min' => trans('local.facebook_min'),
             'youtube.max' => trans('local.youtube_max'),
-            'youtube.min' => trans('local.youtube_min'),
             'msg_maintenance.max' => trans('local.msg_maintenance_max'),
-            'msg_maintenance.min' => trans('local.msg_maintenance_min'),
         ];
     }
 }
