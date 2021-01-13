@@ -31,7 +31,6 @@
                             <tr>
                                 <th><input type="checkbox" class="ace" /></th>
                                 <th>#</th>
-                                <th>{{trans('local.name')}}</th>
                                 <th>{{trans('local.display_name')}}</th>
                                 <th>{{trans('local.description')}}</th>
                                 <th>{{trans('local.show')}}</th>

@@ -46,13 +46,15 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Student\\": "app/Modules/student"
         },
         "files": [
             "app/Http/helpers/PublicHelper.php"
         ],
         "classmap": [
             "database/seeds",
+            "app/Modules/student/database/seeds",
             "database/factories"
         ]
     },
