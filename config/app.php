@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Student\Providers\StudentServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -174,6 +175,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        
         Yoeunes\Toastr\ToastrServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
@@ -238,7 +240,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Image' => Intervention\Image\Facades\Image::class,
 
-        
+
     ],
 
 ];

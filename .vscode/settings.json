@@ -2,7 +2,10 @@
     "cSpell.ignoreWords": [
         "activitylog",
         "authenticatable",
+        "build",
+        "hmvc",
         "laratrust",
+        "prefix",
         "signin",
         "spatie",
         "toastr",

@@ -19,6 +19,7 @@
       <div class="navbar-container content">
         <div class="collapse navbar-collapse" id="navbar-mobile">
           <ul class="nav navbar-nav mr-auto float-left">
+            {{-- mega --}}
             <li class="dropdown nav-item mega-dropdown"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown">Mega</a>
               <ul class="mega-dropdown-menu dropdown-menu row">
                 <li class="col-md-2">
@@ -147,32 +148,52 @@
               </ul>
             </li>
 
+            {{-- modules --}}
+            <li class="dropdown dropdown-language nav-item"><a class="dropdown-toggle nav-link" id="dropdown-flag" href="#" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                  @if (request()->segment(3) == 'students')
+                    <i class="flag-icon flag-icon-graduation-cap"></i><span class="selected-language">{{ trans('local.students_affairs') }}</span>
+                  @else
+                    <i class="ficon ft-home"></i><span class="selected-language">{{ trans('local.modules') }}</span>
+                  @endif
+                <span class="selected-language"></span></a>
+                <div class="dropdown-menu" aria-labelledby="dropdown-flag">
+                  <a class="dropdown-item" href="{{route('students.dashboard')}}"><i class="la la-graduation-cap"></i> {{ trans('local.students_affairs') }}</a>
+                </div>
+            </li>
+
+            {{-- search --}}
             <li class="nav-item nav-search"><a class="nav-link nav-link-search" href="#"><i class="ficon ft-search"></i></a>
               <div class="search-input">
                 <input class="input" type="text" placeholder="Explore Modern...">
               </div>
             </li>
+
           </ul>
 
           <ul class="nav navbar-nav float-right">
+            {{-- profile --}}
             <li class="dropdown dropdown-user nav-item">
-              <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                <span class="mr-1">{{ trans('local.hello') }},
-                  <span class="user-name text-bold-700">{{authInfo()->admin_name}}</span>
-                </span>
-                <span class="avatar avatar-online">
-                  <img src="{{asset(authInfo()->profile_image)}}" alt="avatar"><i></i></span>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item mr-3" href="{{route('profile')}}"><i class="ft-user"></i> {{ trans('local.edit_profile') }}</a>
-                    <a class="dropdown-item mr-3" href="{{route('change.password')}}">{{ trans('local.change_password') }} <i class="ft-lock"></i> </a>
-                    @if (authInfo()->isAbleTo('view-roles'))
-                        <a class="dropdown-item mr-3" href="{{route('roles.index')}}">{{ trans('local.roles') }} <i class="ft-users"></i> </a>
-                    @endif
-                <div class="dropdown-divider"></div><a class="dropdown-item" href="{{route('logout')}}"><i class="ft-power"></i> {{trans('local.logout')}}</a>
-              </div>
+                <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
+                  <span class="mr-1">{{ trans('local.hello') }},
+                    <span class="user-name text-bold-700">{{authInfo()->admin_name}}</span>
+                  </span>
+                  <span class="avatar avatar-online">
+                    <img src="{{asset(authInfo()->profile_image)}}" alt="avatar"><i></i></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                      <a class="dropdown-item mr-3" href="{{route('profile')}}"><i class="ft-user"></i> {{ trans('local.edit_profile') }}</a>
+                      <a class="dropdown-item mr-3" href="{{route('change.password')}}">{{ trans('local.change_password') }} <i class="ft-lock"></i> </a>
+                      @if (authInfo()->isAbleTo('view-roles'))
+                          <a class="dropdown-item mr-3" href="{{route('roles.index')}}">{{ trans('local.roles') }} <i class="ft-users"></i> </a>
+                      @endif
+                  <div class="dropdown-divider"></div><a class="dropdown-item" href="{{route('logout')}}"><i class="ft-power"></i> {{trans('local.logout')}}</a>
+                </div>
             </li>
 
+
+
+            {{-- langauges --}}
             <li class="dropdown dropdown-language nav-item"><a class="dropdown-toggle nav-link" id="dropdown-flag" href="#" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
                 @if (session('lang') == 'ar')
@@ -187,6 +208,7 @@
               </div>
             </li>
 
+            {{-- notifications --}}
             <li class="dropdown dropdown-notification nav-item">
               <a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon ft-bell"></i>
                 <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow">5</span>
@@ -261,7 +283,7 @@
                 <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center" href="javascript:void(0)">Read all notifications</a></li>
               </ul>
             </li>
-
+            {{-- emails --}}
             <li class="dropdown dropdown-notification nav-item">
               <a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon ft-mail">             </i></a>
               <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">

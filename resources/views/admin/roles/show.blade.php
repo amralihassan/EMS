@@ -3,6 +3,9 @@
 @section('styles')
 <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/forms/icheck/icheck.css')}}">
 @endsection
+@section('sidebar')
+@include('admin.layouts.sidebar')
+@endsection
 @section('content')
 <div class="content-header row">
     <div class="content-header-left col-md-6 col-12 mb-2">
@@ -29,7 +32,7 @@
 
                 <input type="hidden" name="role_id" value="{{$role->id}}">
                   <h4 class="form-section">{{ trans('local.general_settings') }}</h4>
-                  
+
                     @include('admin.roles.permissions.tree')
 
                   <div class="form-actions">

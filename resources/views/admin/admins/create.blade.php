@@ -1,5 +1,8 @@
 @extends('admin.layouts.app')
 @section('title', trans('local.add_administrative'))
+@section('sidebar')
+@include('admin.layouts.sidebar')
+@endsection
 @section('styles')
 <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/forms/icheck/icheck.css')}}">
 @endsection

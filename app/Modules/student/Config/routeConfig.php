@@ -3,7 +3,7 @@
 return [
     'prefix' => [
         'backend' => 'backend',
-        'frontend' => 'frontend'
+        'frontend' => 'frontend',
     ],
-    'moduleName' => 'students-affairs'
+    'moduleName' => 'students-affairs',
 ];

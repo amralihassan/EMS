@@ -19,7 +19,6 @@
   @yield('styles')
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
 
-
   @php
     $css_path = session('lang') == 'ar' ? 'app-assets/css-rtl/' : 'app-assets/css/';
   @endphp
@@ -53,7 +52,7 @@ data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
   @include('admin.layouts.nav')
 
   {{-- sidebar --}}
-  @include('admin.layouts.sidebar')
+  @yield('sidebar')
   {{-- content --}}
   <div class="app-content content animsition" data-animsition-in-class="fade-in-{{session('lang') =='ar'?'right':'left'}}-sm"
    data-animsition-in-duration="1000" >

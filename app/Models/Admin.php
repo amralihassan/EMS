@@ -21,8 +21,7 @@ class Admin extends Authenticatable
         'ar_name', 'en_name', 'email', 'password', 'lang', 'image_profile', 'status', 'username',
     ];
 
-    protected static $logAttributes = ['ar_name', 'en_name', 'email','username','email', 'status'];
-
+    protected static $logAttributes = ['ar_name', 'en_name', 'email', 'username', 'email', 'status'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -62,7 +61,6 @@ class Admin extends Authenticatable
         $this->attributes['password'] = bcrypt($value);
     }
 
-
     public function getProfileImageAttribute()
     {
         if (!empty($this->image_profile)) {
@@ -80,5 +78,10 @@ class Admin extends Authenticatable
     public function getUpdatedAtAttribute($value)
     {
         return \Carbon\Carbon::parse($value)->format('M d Y, D h:i a');
+    }
+
+    public function years()
+    {
+        return $this->hasMany('Student\Models\Settings\Year', 'admin_id');
     }
 }

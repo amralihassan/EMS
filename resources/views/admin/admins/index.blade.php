@@ -3,6 +3,9 @@
 @section('styles')
   <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/tables/datatable/datatables.min.css')}}">
 @endsection
+@section('sidebar')
+@include('admin.layouts.sidebar')
+@endsection
 @section('content')
 <div class="content-header row">
     <div class="content-header-left col-md-6 col-12 mb-2">

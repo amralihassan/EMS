@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
-@section('title',trans('local.dashboard'))
+@section('title',trans('local.students_affairs'))
 @section('sidebar')
-    @include('admin.layouts.sidebar')
+    @include('admin.layouts.sidebars.students-sidebar')
 @endsection
 @section('content')
 <div class="content-header row">
@@ -10,7 +10,7 @@
       <div class="row breadcrumbs-top">
         <div class="breadcrumb-wrapper col-12">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">{{ trans('local.dashboard') }}</a></li>
+            <li class="breadcrumb-item"><a href="{{route('students.dashboard')}}">{{ trans('local.dashboard') }}</a></li>
             <li class="breadcrumb-item active">test</li>
           </ol>
         </div>

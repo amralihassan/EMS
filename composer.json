@@ -50,7 +50,9 @@
             "Student\\": "app/Modules/student"
         },
         "files": [
-            "app/Http/helpers/PublicHelper.php"
+            "app/Http/helpers/PublicHelper.php",
+            "app/Http/helpers/RouteHelper.php",
+            "app/Http/helpers/PathHelper.php"
         ],
         "classmap": [
             "database/seeds",
