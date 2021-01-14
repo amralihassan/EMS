@@ -17,7 +17,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         // ACCESS DENIED
         Route::get('/access-denied','AccessDeniedController@accessDenied');
         // logs
-        Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+        Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('logs');
         // LOGOUT
         Route::get('/logout', 'AdminAuth@logout')->name('logout');
 

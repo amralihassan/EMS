@@ -16,6 +16,7 @@
         @endif
 
         <li class=" nav-item {{request()->segment(2) == 'activities-logs' ? 'active':''}}"><a href="{{route('activities.logs')}}"><i class="la la-history"></i><span class="menu-title" data-i18n="nav.scrumboard.main">{{ trans('local.activities_logs') }}</span></a></li>
+        <li class=" nav-item {{request()->segment(2) == 'logs' ? 'active':''}}"><a href="{{route('logs')}}"><i class="la la-calendar"></i><span class="menu-title" data-i18n="nav.scrumboard.main">{{ trans('local.log_viewer') }}</span></a></li>
 
       </ul>
     </div>

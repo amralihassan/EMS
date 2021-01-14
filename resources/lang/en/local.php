@@ -165,7 +165,7 @@ return
     'delete_admin'                          => 'Delete administrative',
     'view_roles'                            => 'View roles',
     'delete_roles'                          => 'Delete roles',
-    ''  => '',
+    'log_viewer'                            => 'Log Viewer',
     ''  => '',
     ''  => '',
     ''  => '',
