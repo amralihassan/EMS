@@ -29,20 +29,8 @@
 
                 <input type="hidden" name="role_id" value="{{$role->id}}">
                   <h4 class="form-section">{{ trans('local.general_settings') }}</h4>
-                  <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Permissin</th>
-                                <th>View</th>
-                                <th>Add</th>
-                                <th>Update</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @include('admin.roles.permissions.tbody')
-                        </tbody>
-                    </table>
+                  
+                    @include('admin.roles.permissions.tree')
 
                   <div class="form-actions">
                     <button type="button" class="btn btn-warning mr-1" onclick="location.href='{{route('roles.index')}}';">

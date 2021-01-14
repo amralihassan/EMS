@@ -101,3 +101,7 @@ div.dataTables_wrapper div.dataTables_length label {
     font-size: 15px;
     font-weight: bold;
 }
+
+.none-style{
+    list-style-type: none;
+}
