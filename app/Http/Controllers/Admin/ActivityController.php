@@ -9,7 +9,7 @@ class ActivityController extends Controller
 {
     public function activities()
     {
-        $activities = Activity::with('user')->orderBy('id', 'desc')->get();
+        $activities = Activity::with('user')->get();
         return view('admin.activities.activity-logs', compact('activities'));
     }
 

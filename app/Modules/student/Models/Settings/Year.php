@@ -10,6 +10,8 @@ class Year extends Model
 
     protected $fillable = ['name', 'start_from', 'end_in', 'active_year', 'admin_id', 'open_close_year'];
 
+    protected static $logAttributes = ['name', 'start_from', 'end_in', 'active_year', 'open_close_year'];
+
     public function admin()
     {
         return $this->belongsTo('App\Models\Admin', 'admin_id');
