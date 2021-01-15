@@ -8,6 +8,11 @@ use Student\Models\Settings\Year;
 
 class YearOp extends Year implements IFetchData, IMainOperations
 {
+    private static function attributes()
+    {
+        return ['name', 'start_from', 'end_in', 'active_year', 'admin_id', 'open_close_year'];
+    }
+
     public static function _fetchAll()
     {
         return Year::latest();
@@ -20,18 +25,14 @@ class YearOp extends Year implements IFetchData, IMainOperations
 
     public static function _store($request)
     {
-        $request->user()->years()->firstOrCreate($request->only(
-            ['name', 'start_from', 'end_in', 'active_year', 'admin_id', 'open_close_year']
-        ));
+        $request->user()->years()->firstOrCreate($request->only(self::attributes()));
         return true;
     }
 
     public static function _update($request, $id)
     {
         $year = Year::findOrFail($id);
-        $year->update($request->only(
-            ['name', 'start_from', 'end_in', 'active_year', 'admin_id', 'open_close_year']
-        ));
+        $year->update($request->only(self::attributes()));
     }
 
     public static function _destroy($data)
