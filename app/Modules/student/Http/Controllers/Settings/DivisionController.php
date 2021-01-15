@@ -3,11 +3,20 @@
 namespace Student\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
+use Student\Http\Requests\DivisionRequest;
+use Student\Models\Settings\Division;
+use Student\Models\Settings\Operations\DivisionOp;
 
 class DivisionController extends Controller
 {
+    public function __construct()
+    {
+        // $this->middleware('permission:view-division', ['only' => ['index']]);
+        // $this->middleware('permission:add-division', ['only' => ['create', 'store']]);
+        // $this->middleware('permission:edit-division', ['only' => ['edit', 'update']]);
+        // $this->middleware('permission:delete-division', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +24,36 @@ class DivisionController extends Controller
      */
     public function index()
     {
-        //
+        if (request()->ajax()) {
+            $data = DivisionOp::_fetchAll();
+            return $this->dataTable($data);
+        }
+        return view('student::settings.divisions.index');
+    }
+
+    private function dataTable($data)
+    {
+        return datatables($data)
+            ->addIndexColumn()
+            ->addColumn('action', function ($data) {
+                return '<a class="btn btn-warning btn-sm" href="' . route('divisions.edit', $data->id) . '">
+                        <i class="la la-edit"></i>
+                    </a>';
+            })
+            ->addColumn('division_name', function ($data) {
+                return $data->division_name;
+            })
+            ->addColumn('school_name', function ($data) {
+                return $data->school_name;
+            })
+            ->addColumn('check', function ($data) {
+                return '<label class="pos-rel">
+                                <input type="checkbox" class="ace" name="id[]" value="' . $data->id . '" />
+                                <span class="lbl"></span>
+                            </label>';
+            })
+            ->rawColumns(['action', 'check', 'division_name','school_name'])
+            ->make(true);
     }
 
     /**
@@ -25,7 +63,8 @@ class DivisionController extends Controller
      */
     public function create()
     {
-        //
+        $division = new Division();
+        return view('student::settings.divisions.create', compact('division'));
     }
 
     /**
@@ -34,20 +73,11 @@ class DivisionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DivisionRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        DivisionOp::_store($request);
+        toastr()->success(trans('local.saved_success'));
+        return redirect()->route('divisions.index');
     }
 
     /**
@@ -58,7 +88,8 @@ class DivisionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $division = DivisionOp::_fetchById($id);
+        return view('student::settings.divisions.edit', compact('division'));
     }
 
     /**
@@ -68,9 +99,11 @@ class DivisionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DivisionRequest $request, $id)
     {
-        //
+        DivisionOp::_update($request, $id);
+        toastr()->success(trans('local.updated_success'));
+        return redirect()->route('divisions.index');
     }
 
     /**
@@ -79,8 +112,13 @@ class DivisionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+        if (request()->ajax()) {
+            if (request()->has('id')) {
+                $status = DivisionOp::_destroy(request('id'));
+            }
+        }
+        return response(['status' => $status]);
     }
 }

@@ -37,4 +37,9 @@ class Division extends Model
     {
         return session('lang') == 'ar' ? $this->ar_name : $this->en_name;
     }
+
+    public function getSchoolNameAttribute()
+    {
+        return session('lang') == 'ar' ? $this->ar_school_name : $this->en_school_name;
+    }
 }

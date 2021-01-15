@@ -9,6 +9,7 @@
         <li class=" nav-item"><a href="index.html"><i class="la la-gears"></i><span class="menu-title" data-i18n="nav.dash.main">{{ trans('local.settings') }}</span></a>
             <ul class="menu-content">
                 <li class="{{request()->segment(3) == 'academic-years' ? 'active':''}}"><a class="menu-item" href="{{route('academic-years.index')}}" data-i18n="nav.dash.ecommerce">{{ trans('student::local.years') }}</a></li>
+                <li class="{{request()->segment(3) == 'divisions' ? 'active':''}}"><a class="menu-item" href="{{route('divisions.index')}}" data-i18n="nav.dash.ecommerce">{{ trans('student::local.divisions') }}</a></li>
             </ul>
         </li>
 

@@ -24,7 +24,28 @@ class DivisionRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'ar_name' => ['required', 'max:50'],
+            'en_name' => ['required', 'max:50'],
+            'ar_school_name' => ['required', 'max:50'],
+            'en_school_name' => ['required', 'max:50'],
+            'total' => ['required', 'numeric'],
+            'sort' => ['required', 'max:50'],
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'ar_name.required' => trans('student::local.ar_name_required'),
+            'ar_name.max' => trans('student::local.ar_name_max'),
+            'en_name.required' => trans('student::local.en_name_required'),
+            'en_name.max' => trans('student::local.en_name_max'),
+            'ar_school_name.required' => trans('student::local.ar_school_name_required'),
+            'ar_school_name.max' => trans('student::local.ar_school_name_max'),
+            'en_school_name.required' => trans('student::local.en_school_name_required'),
+            'en_school_name.max' => trans('student::local.en_school_name_max'),
+            'total.required' => trans('student::local.total_required'),
+            'total.numeric' => trans('student::local.total_numeric'),
+            'sort.required' => trans('student::local.sort_required'),
         ];
     }
 }
