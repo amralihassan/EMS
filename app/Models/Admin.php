@@ -84,4 +84,69 @@ class Admin extends Authenticatable
     {
         return $this->hasMany('Student\Models\Settings\Year', 'admin_id');
     }
+
+    public function admissionDocuments()
+    {
+        return $this->hasMany('Student\Models\Settings\AdmissionDocument', 'admin_id');
+    }
+
+    public function classrooms()
+    {
+        return $this->hasMany('Student\Models\Settings\Classroom', 'admin_id');
+    }
+
+    public function designs()
+    {
+        return $this->hasMany('Student\Models\Settings\Design', 'admin_id');
+    }
+
+    public function divisions()
+    {
+        return $this->hasMany('Student\Models\Settings\Division', 'admin_id');
+    }
+
+    public function grades()
+    {
+        return $this->hasMany('Student\Models\Settings\Grade', 'admin_id');
+    }
+
+    public function interviews()
+    {
+        return $this->hasMany('Student\Models\Settings\Interview', 'admin_id');
+    }
+
+    public function languages()
+    {
+        return $this->hasMany('Student\Models\Settings\Language', 'admin_id');
+    }
+
+    public function nationalities()
+    {
+        return $this->hasMany('Student\Models\Settings\Nationality', 'admin_id');
+    }
+
+    public function registrationStatus()
+    {
+        return $this->hasMany('Student\Models\Settings\RegistrationStatus', 'admin_id');
+    }
+
+    public function schools()
+    {
+        return $this->hasMany('Student\Models\Settings\School', 'admin_id');
+    }
+
+    public function stages()
+    {
+        return $this->hasMany('Student\Models\Settings\Stage', 'admin_id');
+    }
+
+    public function subjects()
+    {
+        return $this->hasMany('Student\Models\Settings\Subject', 'admin_id');
+    }
+
+    public function submissionTests()
+    {
+        return $this->hasMany('Student\Models\Settings\SubmissionTest', 'admin_id');
+    }
 }
