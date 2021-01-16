@@ -33,7 +33,7 @@ class Language extends Model
         return $query->orderBy('sort', 'asc');
     }
 
-    public function geLangNameAttribute()
+    public function getLangNameAttribute()
     {
         return session('lang') == 'ar' ? $this->ar_name : $this->en_name;
     }

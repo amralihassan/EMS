@@ -33,7 +33,7 @@ class Step extends Model
         return $query->orderBy('sort', 'asc');
     }
 
-    public function geStepNameAttribute()
+    public function getStepNameAttribute()
     {
         return session('lang') == 'ar' ? $this->ar_name : $this->en_name;
     }

@@ -35,7 +35,7 @@ class SubmissionTest extends Model
         return $query->orderBy('sort', 'asc');
     }
 
-    public function geTestNameAttribute()
+    public function getTestNameAttribute()
     {
         return session('lang') == 'ar' ? $this->ar_name : $this->en_name;
     }

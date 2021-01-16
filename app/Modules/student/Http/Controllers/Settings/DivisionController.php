@@ -3,7 +3,6 @@
 namespace Student\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Student\Http\Requests\DivisionRequest;
 use Student\Models\Settings\Division;
 use Student\Models\Settings\Operations\DivisionOp;
@@ -52,7 +51,7 @@ class DivisionController extends Controller
                                 <span class="lbl"></span>
                             </label>';
             })
-            ->rawColumns(['action', 'check', 'division_name','school_name'])
+            ->rawColumns(['action', 'check', 'division_name', 'school_name'])
             ->make(true);
     }
 

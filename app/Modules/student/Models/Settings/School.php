@@ -28,7 +28,7 @@ class School extends Model
         return \Carbon\Carbon::parse($value)->format('M d Y, D h:i a');
     }
 
-    public function geSchoolNameAttribute()
+    public function getSchoolNameAttribute()
     {
         return session('lang') == 'ar' ? $this->ar_name : $this->en_name;
     }

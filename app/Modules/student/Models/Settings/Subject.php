@@ -33,7 +33,7 @@ class Subject extends Model
         return $query->orderBy('sort', 'asc');
     }
 
-    public function geSubjectNameAttribute()
+    public function getSubjectNameAttribute()
     {
         return session('lang') == 'ar' ? $this->ar_name : $this->en_name;
     }

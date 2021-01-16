@@ -29,7 +29,7 @@ class DivisionRequest extends FormRequest
             'ar_school_name' => ['required', 'max:50'],
             'en_school_name' => ['required', 'max:50'],
             'total' => ['required', 'numeric'],
-            'sort' => ['required', 'max:50'],
+            'sort' => ['required', 'numeric'],
         ];
     }
     public function messages()
@@ -46,6 +46,7 @@ class DivisionRequest extends FormRequest
             'total.required' => trans('student::local.total_required'),
             'total.numeric' => trans('student::local.total_numeric'),
             'sort.required' => trans('student::local.sort_required'),
+            'sort.numeric' => trans('student::local.sort_numeric'),
         ];
     }
 }

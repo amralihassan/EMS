@@ -15,7 +15,7 @@ class DivisionOp extends Division implements IFetchData, IMainOperations
 
     public static function _fetchAll()
     {
-        return Division::latest();
+        return Division::sort()->get();
     }
 
     public static function _fetchById($id)

@@ -33,7 +33,7 @@ class Stage extends Model
         return $query->orderBy('sort', 'asc');
     }
 
-    public function geStageNameAttribute()
+    public function getStageNameAttribute()
     {
         return session('lang') == 'ar' ? $this->ar_name : $this->en_name;
     }

@@ -15,7 +15,7 @@ class StageOp extends Stage implements IFetchData, IMainOperations
 
     public static function _fetchAll()
     {
-        return Stage::latest();
+        return Stage::sort()->get();
     }
 
     public static function _fetchById($id)

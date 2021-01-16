@@ -8,3 +8,7 @@ Route::post('academic-years/destroy', 'YearController@destroy')->name('academic-
 // DIVISIONS
 Route::resource('divisions', 'DivisionController')->except('destroy', 'show');
 Route::post('divisions/destroy', 'DivisionController@destroy')->name('divisions.destroy');
+
+// STAGES
+Route::resource('stages', 'StageController')->except('destroy', 'show');
+Route::post('stages/destroy', 'StageController@destroy')->name('stages.destroy');
