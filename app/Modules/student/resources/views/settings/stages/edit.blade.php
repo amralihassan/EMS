@@ -46,39 +46,18 @@
   </div>
 @endsection
 @section('script')
-<script src="//cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script>
-<script>
-    CKEDITOR.replace('ckeditor', {
-        language: "{{ session('lang') }}",
-        toolbar: [{
-                name: 'basicstyles',
-                groups: ['basicstyles', 'cleanup'],
-                items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-',
-                    'RemoveFormat'
-                ]
-            },
-            {
-                name: 'paragraph',
-                groups: ['list', 'indent', 'blocks', 'align', 'bidi'],
-                items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote',
-                    'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock',
-                    '-', 'BidiLtr', 'BidiRtl', 'Language'
-                ]
-            },
-            {
-                name: 'styles',
-                items: ['FontSize']
-            },
-            {
-                name: 'colors',
-                items: ['TextColor', 'BGColor']
-            },
-            {
-                name: 'tools',
-                items: ['Maximize']
-            },
-        ]
-    });
-
-</script>
+    <script src="//cdn.ckeditor.com/4.14.0/full/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'ckeditor', {
+            language: "{{session('lang')}}",
+            toolbarGroups: [
+                { name: 'mode' },
+                { name: 'basicstyles' },
+                { name: 'colors' },
+                { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
+                { name: 'tools' },
+                { name: 'styles' }
+            ]
+        } );
+    </script>
 @endsection

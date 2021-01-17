@@ -35,7 +35,7 @@ class RegistrationStatus extends Model
         return $query->orderBy('sort', 'asc');
     }
 
-    public function getStatusNameAttribute()
+    public function getRegistrationNameAttribute()
     {
         return session('lang') == 'ar' ? $this->ar_name : $this->en_name;
     }

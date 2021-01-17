@@ -39,13 +39,16 @@ class InterviewController extends Controller
                         <i class="la la-edit"></i>
                     </a>';
             })
+            ->addColumn('interview_name', function ($data) {
+                return $data->interview_name;
+            })
             ->addColumn('check', function ($data) {
                 return '<label class="pos-rel">
                                 <input type="checkbox" class="ace" name="id[]" value="' . $data->id . '" />
                                 <span class="lbl"></span>
                             </label>';
             })
-            ->rawColumns(['action', 'check'])
+            ->rawColumns(['action', 'check', 'interview_name'])
             ->make(true);
     }
 

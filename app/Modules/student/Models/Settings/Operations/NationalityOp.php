@@ -15,7 +15,7 @@ class NationalityOp extends Nationality implements IFetchData, IMainOperations
 
     public static function _fetchAll()
     {
-        return Nationality::latest();
+        return Nationality::sort()->get();
     }
 
     public static function _fetchById($id)

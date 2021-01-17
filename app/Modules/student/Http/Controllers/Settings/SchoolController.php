@@ -39,13 +39,16 @@ class SchoolController extends Controller
                         <i class="la la-edit"></i>
                     </a>';
             })
+            ->addColumn('school_name', function ($data) {
+                return $data->school_name;
+            })
             ->addColumn('check', function ($data) {
                 return '<label class="pos-rel">
                                 <input type="checkbox" class="ace" name="id[]" value="' . $data->id . '" />
                                 <span class="lbl"></span>
                             </label>';
             })
-            ->rawColumns(['action', 'check'])
+            ->rawColumns(['action', 'check', 'school_name'])
             ->make(true);
     }
 

@@ -140,6 +140,11 @@ class Admin extends Authenticatable
         return $this->hasMany('Student\Models\Settings\Stage', 'admin_id');
     }
 
+    public function steps()
+    {
+        return $this->hasMany('Student\Models\Settings\Step', 'admin_id');
+    }
+
     public function subjects()
     {
         return $this->hasMany('Student\Models\Settings\Subject', 'admin_id');

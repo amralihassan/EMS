@@ -3,7 +3,6 @@
 namespace Student\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
 use Student\Http\Requests\SubmissionTestRequest;
 use Student\Models\Settings\Operations\SubmissionTestOp;
@@ -41,13 +40,16 @@ class SubmissionTestController extends Controller
                         <i class="la la-edit"></i>
                     </a>';
             })
+            ->addColumn('test_name', function ($data) {
+                return $data->test_name;
+            })
             ->addColumn('check', function ($data) {
                 return '<label class="pos-rel">
                                 <input type="checkbox" class="ace" name="id[]" value="' . $data->id . '" />
                                 <span class="lbl"></span>
                             </label>';
             })
-            ->rawColumns(['action', 'check'])
+            ->rawColumns(['action', 'check', 'test_name'])
             ->make(true);
     }
 

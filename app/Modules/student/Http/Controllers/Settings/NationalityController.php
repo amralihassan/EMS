@@ -40,13 +40,19 @@ class NationalityController extends Controller
                         <i class="la la-edit"></i>
                     </a>';
             })
+            ->addColumn('male_nationality', function ($data) {
+                return $data->male_nationality;
+            })
+            ->addColumn('female_nationality', function ($data) {
+                return $data->female_nationality;
+            })
             ->addColumn('check', function ($data) {
                 return '<label class="pos-rel">
                                 <input type="checkbox" class="ace" name="id[]" value="' . $data->id . '" />
                                 <span class="lbl"></span>
                             </label>';
             })
-            ->rawColumns(['action', 'check'])
+            ->rawColumns(['action', 'check', 'male_nationality', 'female_nationality'])
             ->make(true);
     }
 

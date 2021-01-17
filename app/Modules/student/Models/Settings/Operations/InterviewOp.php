@@ -15,7 +15,7 @@ class InterviewOp extends Interview implements IFetchData, IMainOperations
 
     public static function _fetchAll()
     {
-        return Interview::latest();
+        return Interview::sort()->get();
     }
 
     public static function _fetchById($id)

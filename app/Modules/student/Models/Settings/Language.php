@@ -33,8 +33,18 @@ class Language extends Model
         return $query->orderBy('sort', 'asc');
     }
 
-    public function getLangNameAttribute()
+    public function getLanguageNameAttribute()
     {
         return session('lang') == 'ar' ? $this->ar_name : $this->en_name;
+    }
+
+    public function getLangTypeAttribute($value)
+    {
+        switch ($value) {
+            case 'speak':return trans('student::local.speak');
+            case 'study':return trans('student::local.study');
+            case 'speak_study':return trans('student::local.speak_study');
+
+        }
     }
 }

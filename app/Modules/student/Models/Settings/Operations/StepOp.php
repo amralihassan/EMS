@@ -15,7 +15,7 @@ class StepOp extends Step implements IFetchData, IMainOperations
 
     public static function _fetchAll()
     {
-        return Step::latest();
+        return Step::sort()->get();
     }
 
     public static function _fetchById($id)

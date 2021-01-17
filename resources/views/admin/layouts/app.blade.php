@@ -45,9 +45,24 @@
         <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
   @endif
   <!-- END Custom CSS-->
+  <style>
+    .se-pre-con {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url("{{url('app-assets/loader-64x/1.gif')}}") center no-repeat #fff;        }
+        .message{
+        position: absolute;width: 100%;height: 50px;background-color: #11c011;color: white;line-height: 50px;
+        z-index: 1200;text-align: center;opacity: 1;top: -50px ;
+}
+</style>
 </head>
 <body class="vertical-layout vertical-menu-modern 2-columns   menu-expanded fixed-navbar"
 data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+<div class="se-pre-con"></div>
   <!-- fixed-top-->
   @include('admin.layouts.nav')
 
@@ -84,6 +99,7 @@ data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
   <!-- END MODERN JS-->
   <!-- BEGIN PAGE LEVEL JS-->
   {{-- start animation --}}
+  <script>$(".se-pre-con").fadeOut("slow");</script>
   <script src="{{asset('assets/js/animsition.min.js')}}"></script>
   <script>
       $(document).ready(function() {

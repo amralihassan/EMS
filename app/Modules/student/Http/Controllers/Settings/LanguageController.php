@@ -39,13 +39,16 @@ class LanguageController extends Controller
                         <i class="la la-edit"></i>
                     </a>';
             })
+            ->addColumn('language_name', function ($data) {
+                return $data->language_name;
+            })
             ->addColumn('check', function ($data) {
                 return '<label class="pos-rel">
                                 <input type="checkbox" class="ace" name="id[]" value="' . $data->id . '" />
                                 <span class="lbl"></span>
                             </label>';
             })
-            ->rawColumns(['action', 'check'])
+            ->rawColumns(['action', 'check', 'language_name'])
             ->make(true);
     }
 

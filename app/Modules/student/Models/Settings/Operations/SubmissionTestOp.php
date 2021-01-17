@@ -15,7 +15,7 @@ class SubmissionTestOp extends SubmissionTest implements IFetchData, IMainOperat
 
     public static function _fetchAll()
     {
-        return SubmissionTest::latest();
+        return SubmissionTest::sort()->get();
     }
 
     public static function _fetchById($id)

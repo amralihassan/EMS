@@ -37,4 +37,9 @@ class Subject extends Model
     {
         return session('lang') == 'ar' ? $this->ar_name : $this->en_name;
     }
+
+    public function getShortcutAttribute()
+    {
+        return session('lang') == 'ar' ? $this->ar_shortcut : $this->en_shortcut;
+    }
 }

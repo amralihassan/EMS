@@ -15,7 +15,7 @@ class LanguageOp extends Language implements IFetchData, IMainOperations
 
     public static function _fetchAll()
     {
-        return Language::latest();
+        return Language::sort()->get();
     }
 
     public static function _fetchById($id)

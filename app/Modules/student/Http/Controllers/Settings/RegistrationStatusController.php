@@ -3,7 +3,6 @@
 namespace Student\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
 use Student\Http\Requests\RegistrationStatusRequest;
 use Student\Models\Settings\Operations\RegistrationStatusOp;
@@ -41,13 +40,16 @@ class RegistrationStatusController extends Controller
                         <i class="la la-edit"></i>
                     </a>';
             })
+            ->addColumn('registration_name', function ($data) {
+                return $data->registration_name;
+            })
             ->addColumn('check', function ($data) {
                 return '<label class="pos-rel">
                                 <input type="checkbox" class="ace" name="id[]" value="' . $data->id . '" />
                                 <span class="lbl"></span>
                             </label>';
             })
-            ->rawColumns(['action', 'check'])
+            ->rawColumns(['action', 'check', 'registration_name'])
             ->make(true);
     }
 

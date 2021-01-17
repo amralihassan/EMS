@@ -32,4 +32,14 @@ class School extends Model
     {
         return session('lang') == 'ar' ? $this->ar_name : $this->en_name;
     }
+
+    public function getSchoolTypeAttribute($value)
+    {
+        switch ($value) {
+            case 'private':return trans('student::local.private');
+            case 'lang':return trans('student::local.lang');
+            case 'international':return trans('student::local.international');
+
+        }
+    }
 }

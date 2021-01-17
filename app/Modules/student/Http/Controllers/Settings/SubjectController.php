@@ -2,12 +2,11 @@
 
 namespace Student\Http\Controllers\Settings;
 
-use Illuminate\Http\Request;
-
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Student\Http\Requests\SubjectRequest;
-use Student\Models\Settings\Subject;
 use Student\Models\Settings\Operations\SubjectOp;
+use Student\Models\Settings\Subject;
 
 class SubjectController extends Controller
 {
@@ -41,13 +40,19 @@ class SubjectController extends Controller
                         <i class="la la-edit"></i>
                     </a>';
             })
+            ->addColumn('subject_name', function ($data) {
+                return $data->subject_name;
+            })
+            ->addColumn('shortcut', function ($data) {
+                return $data->shortcut;
+            })
             ->addColumn('check', function ($data) {
                 return '<label class="pos-rel">
                                 <input type="checkbox" class="ace" name="id[]" value="' . $data->id . '" />
                                 <span class="lbl"></span>
                             </label>';
             })
-            ->rawColumns(['action', 'check'])
+            ->rawColumns(['action', 'check', 'subject_name','shortcut'])
             ->make(true);
     }
 

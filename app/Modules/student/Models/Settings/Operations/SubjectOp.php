@@ -15,7 +15,7 @@ class SubjectOp extends Subject implements IFetchData, IMainOperations
 
     public static function _fetchAll()
     {
-        return Subject::latest();
+        return Subject::sort()->get();
     }
 
     public static function _fetchById($id)

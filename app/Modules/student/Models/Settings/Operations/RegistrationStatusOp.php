@@ -15,7 +15,7 @@ class RegistrationStatusOp extends RegistrationStatus implements IFetchData, IMa
 
     public static function _fetchAll()
     {
-        return RegistrationStatus::latest();
+        return RegistrationStatus::sort()->get();
     }
 
     public static function _fetchById($id)
