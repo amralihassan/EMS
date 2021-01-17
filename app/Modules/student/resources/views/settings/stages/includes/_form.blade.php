@@ -33,7 +33,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <label>{{ trans('student::local.sort') }}</label>
+        <label>{{ trans('student::local.signature') }}</label>
         <div class="form-group">
             <textarea class="form-control" name="signatures" id="ckeditor" cols="30" rows="10" class="ckeditor">{{old('signatures', $stage->signatures)}}</textarea>
             @error('signatures')

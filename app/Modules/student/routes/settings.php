@@ -12,3 +12,7 @@ Route::post('divisions/destroy', 'DivisionController@destroy')->name('divisions.
 // STAGES
 Route::resource('stages', 'StageController')->except('destroy', 'show');
 Route::post('stages/destroy', 'StageController@destroy')->name('stages.destroy');
+
+// GRADES
+Route::resource('grades', 'GradeController')->except('destroy', 'show');
+Route::post('grades/destroy', 'GradeController@destroy')->name('grades.destroy');

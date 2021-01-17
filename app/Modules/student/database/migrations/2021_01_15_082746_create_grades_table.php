@@ -24,6 +24,8 @@ class CreateGradesTable extends Migration
             $table->integer('to_age_year')->nullable();
             $table->integer('to_age_month')->nullable();
             $table->integer('sort');
+            $table->unsignedBigInteger('stage_id');
+            $table->foreign('stage_id')->references('id')->on('stages')->onDelete('cascade')->onUpdate('cascade');
             $table->enum('end_stage', ['yes', 'no'])->default('no');
             $table->unsignedBigInteger('admin_id');
             $table->foreign('admin_id')->references('id')->on('admins');

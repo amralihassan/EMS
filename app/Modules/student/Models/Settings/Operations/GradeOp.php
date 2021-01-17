@@ -10,12 +10,12 @@ class GradeOp extends Grade implements IFetchData, IMainOperations
 {
     private static function attributes()
     {
-        return ['ar_name', 'en_name', 'ar_online_name', 'en_online_name', 'from_age_year', 'from_age_month', 'to_age_year', 'to_age_month', 'sort', 'end_stage', 'admin_id'];
+        return ['ar_name', 'en_name', 'ar_online_name', 'en_online_name', 'from_age_year', 'from_age_month', 'to_age_year', 'to_age_month', 'sort', 'end_stage', 'admin_id', 'stage_id'];
     }
 
     public static function _fetchAll()
     {
-        return Grade::latest();
+        return Grade::sort()->get();
     }
 
     public static function _fetchById($id)

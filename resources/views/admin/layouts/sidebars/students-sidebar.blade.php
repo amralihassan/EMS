@@ -11,6 +11,7 @@
                 <li class="{{request()->segment(3) == 'academic-years' ? 'active':''}}"><a class="menu-item" href="{{route('academic-years.index')}}" data-i18n="nav.dash.ecommerce">{{ trans('student::local.years') }}</a></li>
                 <li class="{{request()->segment(3) == 'divisions' ? 'active':''}}"><a class="menu-item" href="{{route('divisions.index')}}" data-i18n="nav.dash.ecommerce">{{ trans('student::local.divisions') }}</a></li>
                 <li class="{{request()->segment(3) == 'stages' ? 'active':''}}"><a class="menu-item" href="{{route('stages.index')}}" data-i18n="nav.dash.ecommerce">{{ trans('student::local.stages') }}</a></li>
+                <li class="{{request()->segment(3) == 'grades' ? 'active':''}}"><a class="menu-item" href="{{route('grades.index')}}" data-i18n="nav.dash.ecommerce">{{ trans('student::local.grades') }}</a></li>
             </ul>
         </li>
 
