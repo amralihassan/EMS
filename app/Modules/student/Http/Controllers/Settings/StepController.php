@@ -3,11 +3,19 @@
 namespace Student\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
+use Student\Http\Requests\StepRequest;
+use Student\Models\Settings\Operations\StepOp;
+use Student\Models\Settings\Step;
 
 class StepController extends Controller
 {
+    public function __construct()
+    {
+        // $this->middleware('permission:view-step', ['only' => ['index']]);
+        // $this->middleware('permission:add-step', ['only' => ['create', 'store']]);
+        // $this->middleware('permission:edit-step', ['only' => ['edit', 'update']]);
+        // $this->middleware('permission:delete-step', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +23,30 @@ class StepController extends Controller
      */
     public function index()
     {
-        //
+        if (request()->ajax()) {
+            $data = StepOp::_fetchAll();
+            return $this->dataTable($data);
+        }
+        return view('student::settings.steps.index');
+    }
+
+    private function dataTable($data)
+    {
+        return datatables($data)
+            ->addIndexColumn()
+            ->addColumn('action', function ($data) {
+                return '<a class="btn btn-warning btn-sm" href="' . route('steps.edit', $data->id) . '">
+                        <i class="la la-edit"></i>
+                    </a>';
+            })
+            ->addColumn('check', function ($data) {
+                return '<label class="pos-rel">
+                                <input type="checkbox" class="ace" name="id[]" value="' . $data->id . '" />
+                                <span class="lbl"></span>
+                            </label>';
+            })
+            ->rawColumns(['action', 'check'])
+            ->make(true);
     }
 
     /**
@@ -25,7 +56,8 @@ class StepController extends Controller
      */
     public function create()
     {
-        //
+        $step = new Step();
+        return view('student::settings.steps.create', compact('step'));
     }
 
     /**
@@ -34,20 +66,11 @@ class StepController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StepRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        StepOp::_store($request);
+        toastr()->success(trans('local.saved_success'));
+        return redirect()->route('steps.index');
     }
 
     /**
@@ -58,7 +81,8 @@ class StepController extends Controller
      */
     public function edit($id)
     {
-        //
+        $step = StepOp::_fetchById($id);
+        return view('student::settings.steps.edit', compact('step'));
     }
 
     /**
@@ -68,9 +92,11 @@ class StepController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StepRequest $request, $id)
     {
-        //
+        StepOp::_update($request, $id);
+        toastr()->success(trans('local.updated_success'));
+        return redirect()->route('steps.index');
     }
 
     /**
@@ -79,8 +105,13 @@ class StepController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+        if (request()->ajax()) {
+            if (request()->has('id')) {
+                $status = StepOp::_destroy(request('id'));
+            }
+        }
+        return response(['status' => $status]);
     }
 }
