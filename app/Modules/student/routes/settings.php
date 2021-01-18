@@ -48,3 +48,11 @@ Route::post('subjects/destroy', 'SubjectController@destroy')->name('subjects.des
 // SUBMISSION TESTS
 Route::resource('submission-tests', 'SubmissionTestController')->except('destroy', 'show');
 Route::post('submission-tests/destroy', 'SubmissionTestController@destroy')->name('submission-tests.destroy');
+
+// APPLICATION DOCUMENTS
+Route::resource('admission-documents', 'AdmissionDocumentController')->except('destroy', 'show');
+Route::post('admission-documents/destroy', 'AdmissionDocumentController@destroy')->name('admission-documents.destroy');
+
+// ID CARDS DESIGN
+Route::resource('id-cards-designs', 'DesignController')->except('show');
+Route::get('id-cards-designs/filter', 'DesignController@filter')->name('id-cards-designs.filter');

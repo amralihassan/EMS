@@ -20,6 +20,8 @@
                 <li class="{{request()->segment(3) == 'steps' ? 'active':''}}"><a class="menu-item" href="{{route('steps.index')}}" data-i18n="nav.dash.ecommerce">{{ trans('student::local.steps') }}</a></li>
                 <li class="{{request()->segment(3) == 'subjects' ? 'active':''}}"><a class="menu-item" href="{{route('subjects.index')}}" data-i18n="nav.dash.ecommerce">{{ trans('student::local.subjects') }}</a></li>
                 <li class="{{request()->segment(3) == 'submission-tests' ? 'active':''}}"><a class="menu-item" href="{{route('submission-tests.index')}}" data-i18n="nav.dash.ecommerce">{{ trans('student::local.submission_tests') }}</a></li>
+                <li class="{{request()->segment(3) == 'admission-documents' ? 'active':''}}"><a class="menu-item" href="{{route('admission-documents.index')}}" data-i18n="nav.dash.ecommerce">{{ trans('student::local.admission_documents') }}</a></li>
+                <li class="{{request()->segment(3) == 'id-cards-designs' ? 'active':''}}"><a class="menu-item" href="{{route('id-cards-designs.index')}}" data-i18n="nav.dash.ecommerce">{{ trans('student::local.id_cards_design') }}</a></li>
             </ul>
         </li>
 

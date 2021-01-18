@@ -4,6 +4,7 @@ namespace Student\Models\Settings\Operations;
 
 use App\Interfaces\IFetchData;
 use App\Interfaces\IMainOperations;
+use DB;
 use Student\Models\Settings\AdmissionDocument;
 
 class AdmissionDocumentOp extends AdmissionDocument implements IFetchData, IMainOperations
@@ -25,14 +26,20 @@ class AdmissionDocumentOp extends AdmissionDocument implements IFetchData, IMain
 
     public static function _store($request)
     {
-        $request->user()->admissionDocuments()->firstOrCreate($request->only(self::attributes()));
+        DB::transaction(function () use ($request) {
+            $document = $request->user()->admissionDocuments()->firstOrCreate($request->only(self::attributes()));
+            $document->grades()->attach($request->grade_id);
+        });
         return true;
     }
 
     public static function _update($request, $id)
     {
-        $year = AdmissionDocument::findOrFail($id);
-        $year->update($request->only(self::attributes()));
+        DB::transaction(function () use ($request, $id) {
+            $document = AdmissionDocument::findOrFail($id);
+            $document->update($request->only(self::attributes()));
+            $document->grades()->sync($request->grade_id);
+        });
     }
 
     public static function _destroy($data)

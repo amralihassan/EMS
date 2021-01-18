@@ -4,19 +4,20 @@ namespace Student\Models\Settings\Operations;
 
 use App\Interfaces\IFetchData;
 use App\Interfaces\IMainOperations;
-use Student\Models\Settings\Design;
+use DB;
 use Intervention\Image\Facades\Image;
+use Student\Models\Settings\Design;
 
 class DesignOp extends Design implements IFetchData, IMainOperations
 {
     private static function attributes()
     {
-        return ['file_name', 'lang_type', 'admin_id'];
+        return ['default'];
     }
 
     public static function _fetchAll()
     {
-        return Design::latest();
+        return Design::with('grades', 'divisions')->orderBy('id', 'desc')->paginate(6);
     }
 
     public static function _fetchById($id)
@@ -26,43 +27,75 @@ class DesignOp extends Design implements IFetchData, IMainOperations
 
     public static function _store($request)
     {
-        $design = $request->user()->designs()->firstOrCreate($request->only(self::attributes()));
+        // dd($request->all());
+        DB::transaction(function () use ($request) {
+            $design = $request->user()->designs()->create($request->only(self::attributes()));
 
-        if ($request->hasFile('file_name')) {
-            $image = $request->file('file_name');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->resize(220, 220)->save(public_path('storage/id-designs/' . $filename));
-            $design->file_name = $filename;
-            $design->save();
+            if ($request->hasFile('file_name')) {
+                self::upload($request, $design);
+            }
 
-        }
+            $design->grades()->attach($request->grade_id);
+            $design->divisions()->attach($request->division_id);
+
+        });
         return true;
+    }
+
+    private static function upload($request, $design)
+    {
+        $image = $request->file('file_name');
+        $filename = time() . '.' . $image->getClientOriginalExtension();
+        Image::make($image)->resize(220, 150)->save(public_path('storage/id-designs/' . $filename));
+        $design->file_name = $filename;
+        $design->save();
     }
 
     public static function _update($request, $id)
     {
-        $design = Design::findOrFail($id);
-        $design->update($request->only(self::attributes()));
+        DB::transaction(function () use ($request, $id) {
+            $design = Design::findOrFail($id);
+            $design->update($request->only(self::attributes()));
 
-        if ($request->hasFile('file_name')) {
-            if (file_exists('storage/id-designs/' . $design->file_name)) {
-                unlink('storage/id-designs/' . $design->file_name);
+            if ($request->hasFile('file_name')) {
+                if (file_exists('storage/id-designs/' . $design->file_name)) {
+                    unlink('storage/id-designs/' . $design->file_name);
+                }
+
+                self::upload($request, $design);
             }
 
-            $image = $request->file('file_name');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->resize(220, 220)->save(public_path('storage/id-designs/' . $filename));
-            $design->file_name = $filename;
-            $design->save();
-
-        }
+            $design->grades()->sync($request->grade_id);
+            $design->divisions()->sync($request->division_id);
+        });
     }
 
-    public static function _destroy($data)
+    public static function _destroy($id)
     {
-        foreach (request('id') as $id) {
-            Design::destroy($id);
+        $design = Design::findOrFail($id);
+        if (file_exists('storage/id-designs/' . $design->file_name)) {
+            unlink('storage/id-designs/' . $design->file_name);
         }
+        $design->delete();
         return true;
+    }
+
+    public static function _fetchByQuery()
+    {
+        $design = Design::with('grades', 'divisions');
+
+        if (!empty(request('division_id'))) {
+            $design->whereHas('divisions', function ($q) {
+                $q->Where('division_id', request('division_id'));
+            });
+        }
+
+        if (!empty(request('grade_id'))) {
+            $design->whereHas('grades', function ($q) {
+                $q->Where('grade_id', request('grade_id'));
+            });
+        }
+
+        return $design->orderBy('id', 'desc')->paginate(6);
     }
 }

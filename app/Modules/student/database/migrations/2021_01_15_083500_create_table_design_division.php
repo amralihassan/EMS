@@ -19,7 +19,6 @@ class CreateTableDesignDivision extends Migration
             $table->foreign('design_id')->references('id')->on('designs')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('division_id');
             $table->foreign('division_id')->references('id')->on('divisions')->onDelete('cascade')->onUpdate('cascade');
-            $table->timestamps();
         });
     }
 

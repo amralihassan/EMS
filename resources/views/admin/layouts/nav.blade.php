@@ -191,8 +191,6 @@
                 </div>
             </li>
 
-
-
             {{-- langauges --}}
             <li class="dropdown dropdown-language nav-item"><a class="dropdown-toggle nav-link" id="dropdown-flag" href="#" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
@@ -283,8 +281,9 @@
                 <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center" href="javascript:void(0)">Read all notifications</a></li>
               </ul>
             </li>
+
             {{-- emails --}}
-            <li class="dropdown dropdown-notification nav-item">
+            {{-- <li class="dropdown dropdown-notification nav-item">
               <a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon ft-mail">             </i></a>
               <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
                 <li class="dropdown-menu-header">
@@ -357,7 +356,7 @@
                 </li>
                 <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center" href="javascript:void(0)">Read all messages</a></li>
               </ul>
-            </li>
+            </li> --}}
           </ul>
         </div>
       </div>

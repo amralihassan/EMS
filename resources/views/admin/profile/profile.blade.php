@@ -99,7 +99,7 @@
                   <i class="ft-x"></i> {{ trans('local.cancel') }}
                 </button>
                 <button type="submit" class="btn btn-primary">
-                  <i class="la la-check-square-o"></i> {{ trans('local.update_password') }}
+                  <i class="la la-check-square-o"></i> {{ trans('local.update') }}
                 </button>
               </div>
             </form>

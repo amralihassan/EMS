@@ -39,4 +39,9 @@ class AdmissionDocument extends Model
     {
         return $this->belongsToMany('Student\Models\Settings\Grade', 'admission_document_grade', 'admission_document_id', 'grade_id');
     }
+
+    public function getDocumentNameAttribute()
+    {
+        return session('lang') == 'ar' ? $this->ar_name : $this->en_name;
+    }
 }

@@ -19,7 +19,6 @@ class CreateTableDesignGrade extends Migration
             $table->foreign('design_id')->references('id')->on('designs')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('grade_id');
             $table->foreign('grade_id')->references('id')->on('grades')->onDelete('cascade')->onUpdate('cascade');
-            $table->timestamps();
         });
     }
 

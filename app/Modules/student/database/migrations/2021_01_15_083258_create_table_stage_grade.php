@@ -19,7 +19,6 @@ class CreateTableStageGrade extends Migration
             $table->foreign('stage_id')->references('id')->on('stages')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('grade_id');
             $table->foreign('grade_id')->references('id')->on('grades')->onDelete('cascade')->onUpdate('cascade');
-            $table->timestamps();
         });
     }
 

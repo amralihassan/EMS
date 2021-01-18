@@ -9,9 +9,9 @@ class Design extends Model
 {
     use LogsActivity;
 
-    protected $fillable = ['file_name', 'lang_type', 'admin_id'];
+    protected $fillable = ['file_name', 'default', 'admin_id'];
 
-    protected static $logAttributes = ['file_name', 'lang_type'];
+    protected static $logAttributes = ['file_name', 'default'];
 
     public function admin()
     {
@@ -35,6 +35,6 @@ class Design extends Model
 
     public function grades()
     {
-        return $this->belongsToMany('Student\Models\Settings\Grade', 'design_division', 'design_id', 'grade_id');
+        return $this->belongsToMany('Student\Models\Settings\Grade', 'design_grade', 'design_id', 'grade_id');
     }
 }

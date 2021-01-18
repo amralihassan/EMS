@@ -15,8 +15,8 @@ class CreateDesignsTable extends Migration
     {
         Schema::create('designs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('file_name');
-            $table->enum('lang_type',['speak','study','speak_study'])->default('speak_study');
+            $table->string('file_name')->nullable();
+            $table->enum('default',['yes','no'])->default('yes');
             $table->unsignedBigInteger('admin_id');
             $table->foreign('admin_id')->references('id')->on('admins');
             $table->timestamps();
