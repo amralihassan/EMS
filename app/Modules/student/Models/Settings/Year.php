@@ -39,7 +39,7 @@ class Year extends Model
 
     public function scopeCurrent($q)
     {
-        return $q->where('status', 'current');
+        return $q->where('active_year', 'current');
     }
     public function scopeOpen($q)
     {

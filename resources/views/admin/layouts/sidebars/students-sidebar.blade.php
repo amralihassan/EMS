@@ -4,6 +4,8 @@
         {{-- dashboard --}}
         <li class=" nav-item {{request()->segment(2) == 'dashboard' ? 'active':''}}"><a href="{{route('students.dashboard')}}"><i class="la la-home"></i><span class="menu-title" data-i18n="nav.scrumboard.main">{{ trans('local.dashboard') }}</span></a></li>
 
+        {{-- calc student age --}}
+        <li class=" nav-item {{request()->segment(2) == 'calculate-student-age' ? 'active':''}}"><a href="{{route('calc-age.index')}}"><i class="la la-calculator"></i><span class="menu-title" data-i18n="nav.scrumboard.main">{{ trans('student::local.calc_student_age') }}</span></a></li>
 
         {{-- settings --}}
         <li class=" nav-item"><a href="index.html"><i class="la la-gears"></i><span class="menu-title" data-i18n="nav.dash.main">{{ trans('local.settings') }}</span></a>
@@ -25,6 +27,7 @@
                 <li class="{{request()->segment(3) == 'id-cards-designs' ? 'active':''}}"><a class="menu-item" href="{{route('id-cards-designs.index')}}" data-i18n="nav.dash.ecommerce">{{ trans('student::local.id_cards_design') }}</a></li>
             </ul>
         </li>
+
 
       </ul>
     </div>

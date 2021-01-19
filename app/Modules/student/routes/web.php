@@ -9,10 +9,16 @@ $moduleName = basename(dirname(__DIR__));
 Route::namespace (getNamespaceController($moduleName))->middleware(['web', 'admin', 'lang'])->group(function () use ($moduleName) {
     Route::prefix(buildPrefix($moduleName))->group(function () {
         Route::group(['namespace' => 'Settings', 'prefix' => 'settings'], function () {
+            // STUDENT SETTINGS
             require 'settings.php';
         });
 
         // STUDENT DASHBOARD
         Route::get('dashboard', 'DashboardController@index')->name('students.dashboard');
+
+        // CALCULATE STUDENT AGE
+        Route::get('calculate-student-age', 'CalcStudentAgeController@index')->name('calc-age.index');
+        Route::put('calculate-student-age', 'CalcStudentAgeController@calculate')->name('calc-age-student');
+
     });
 });
