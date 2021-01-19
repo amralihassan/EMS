@@ -12,6 +12,7 @@
                 <li class="{{request()->segment(3) == 'divisions' ? 'active':''}}"><a class="menu-item" href="{{route('divisions.index')}}" data-i18n="nav.dash.ecommerce">{{ trans('student::local.divisions') }}</a></li>
                 <li class="{{request()->segment(3) == 'stages' ? 'active':''}}"><a class="menu-item" href="{{route('stages.index')}}" data-i18n="nav.dash.ecommerce">{{ trans('student::local.stages') }}</a></li>
                 <li class="{{request()->segment(3) == 'grades' ? 'active':''}}"><a class="menu-item" href="{{route('grades.index')}}" data-i18n="nav.dash.ecommerce">{{ trans('student::local.grades') }}</a></li>
+                <li class="{{request()->segment(3) == 'classrooms' ? 'active':''}}"><a class="menu-item" href="{{route('classrooms.index')}}" data-i18n="nav.dash.ecommerce">{{ trans('student::local.classrooms') }}</a></li>
                 <li class="{{request()->segment(3) == 'interviews' ? 'active':''}}"><a class="menu-item" href="{{route('interviews.index')}}" data-i18n="nav.dash.ecommerce">{{ trans('student::local.interviews') }}</a></li>
                 <li class="{{request()->segment(3) == 'languages' ? 'active':''}}"><a class="menu-item" href="{{route('languages.index')}}" data-i18n="nav.dash.ecommerce">{{ trans('student::local.languages') }}</a></li>
                 <li class="{{request()->segment(3) == 'nationalities' ? 'active':''}}"><a class="menu-item" href="{{route('nationalities.index')}}" data-i18n="nav.dash.ecommerce">{{ trans('student::local.nationalities') }}</a></li>

@@ -117,7 +117,7 @@
         <select name="stage_id" class="form-control @error('stage_id') is-invalid @enderror">
             <option value="">{{ trans('local.select') }}</option>
             @foreach ($stages as $stage)
-                <option {{ (old('stage_id', $grade->id) == $stage->id) ?'selected':''}} value="{{$stage->id}}">{{$stage->stage_name}}</option>
+                <option {{ (old('stage_id', $grade->stage_id) == $stage->id) ?'selected':''}} value="{{$stage->id}}">{{$stage->stage_name}}</option>
             @endforeach
         </select>
         @error('stage_id')

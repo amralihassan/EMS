@@ -45,10 +45,16 @@
                                 <td>{{$activity->description}}</td>
                                 <td>{{$activity->subject_type}}</td>
                                 <td>{{$activity->subject_id}}</td>
-                                <td>{{$activity->user->username}}</td>
+                                <td>
+                                    @isset($activity->user->username)
+                                        {{$activity->user->username}}
+                                    @endisset
+                                </td>
                                 <td>{{$activity->created_at}}</td>
                                 <td>
-                                    <a href="{{route('activities.action',$activity->id)}}" class="btn btn-info btn-sm"><i class="la la-eye"></i></a>
+                                    @isset($activity->user->username)
+                                        <a href="{{route('activities.action',$activity->id)}}" class="btn btn-info btn-sm"><i class="la la-eye"></i></a>
+                                    @endisset
                                 </td>
                             </tr>
                         @endforeach

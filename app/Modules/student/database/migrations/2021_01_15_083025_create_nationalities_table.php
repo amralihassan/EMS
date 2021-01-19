@@ -15,9 +15,9 @@ class CreateNationalitiesTable extends Migration
     {
         Schema::create('nationalities', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('ar_male_name');
-            $table->string('ar_female_name');
-            $table->string('en_name');
+            $table->string('ar_male_name',50);
+            $table->string('ar_female_name',50);
+            $table->string('en_name',50);
             $table->integer('sort');
             $table->unsignedBigInteger('admin_id');
             $table->foreign('admin_id')->references('id')->on('admins');

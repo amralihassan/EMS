@@ -33,7 +33,7 @@ class Classroom extends Model
         return $query->orderBy('sort', 'asc');
     }
 
-    public function getClassNameAttribute()
+    public function getClassroomNameAttribute()
     {
         return session('lang') == 'ar' ? $this->ar_name : $this->en_name;
     }

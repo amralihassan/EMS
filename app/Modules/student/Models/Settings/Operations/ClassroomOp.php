@@ -15,12 +15,27 @@ class ClassroomOp extends Classroom implements IFetchData, IMainOperations
 
     public static function _fetchAll()
     {
-        return Classroom::latest();
+        return Classroom::with('division', 'grade')->sort()->get();
     }
 
     public static function _fetchById($id)
     {
         return Classroom::findOrFail($id);
+    }
+
+    public static function _fetchByQuery()
+    {
+        $classrooms = Classroom::with('division', 'grade')->sort();
+
+        if (!empty(request('division_id'))) {
+            $classrooms->where('division_id', request('division_id'));
+        }
+
+        if (!empty(request('grade_id'))) {
+            $classrooms->where('grade_id', request('grade_id'));
+        }
+
+        return $classrooms->get();
     }
 
     public static function _store($request)

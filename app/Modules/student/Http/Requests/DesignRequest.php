@@ -24,7 +24,7 @@ class DesignRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'file_name' => ['image', 'mimes:png,jpg', 'size:1000'],
         ];
     }
 }

@@ -1,0 +1,10 @@
+columns: [
+            {data: 'check',               name: 'check', orderable: false, searchable: false},
+            {data: 'DT_RowIndex',         name: 'DT_RowIndex', orderable: false, searchable: false},
+            {data: 'classroom_name',       name: 'classroom_name'},
+            {data: 'division_name',       name: 'division_name'},
+            {data: 'grade_name',         name: 'grade_name'},
+            {data: 'total',               name: 'total'},
+            {data: 'sort',                name: 'sort'},
+            {data: 'action', 	          name: 'action', orderable: false, searchable: false},
+          ],

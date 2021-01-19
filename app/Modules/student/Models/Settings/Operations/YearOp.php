@@ -15,7 +15,7 @@ class YearOp extends Year implements IFetchData, IMainOperations
 
     public static function _fetchAll()
     {
-        return Year::latest();
+        return Year::orderBy('id', 'desc')->get();
     }
 
     public static function _fetchById($id)

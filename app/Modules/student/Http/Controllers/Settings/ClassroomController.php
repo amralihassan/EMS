@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Student\Http\Requests\ClassroomRequest;
 use Student\Models\Settings\Classroom;
 use Student\Models\Settings\Operations\ClassroomOp;
+use Student\Models\Settings\Operations\DivisionOp;
+use Student\Models\Settings\Operations\GradeOp;
+use Student\Models\Settings\Operations\YearOp;
 
 class ClassroomController extends Controller
 {
@@ -27,7 +30,11 @@ class ClassroomController extends Controller
             $data = ClassroomOp::_fetchAll();
             return $this->dataTable($data);
         }
-        return view('student::settings.classrooms.index');
+        $divisions = DivisionOp::_fetchAll();
+        $grades = GradeOp::_fetchAll();
+        $years = YearOp::_fetchAll();
+        return view('student::settings.classrooms.index',
+            compact('divisions', 'grades', 'years'));
     }
 
     private function dataTable($data)
@@ -39,11 +46,14 @@ class ClassroomController extends Controller
                         <i class="la la-edit"></i>
                     </a>';
             })
+            ->addColumn('classroom_name', function ($data) {
+                return $data->classroom_name;
+            })
             ->addColumn('grade_name', function ($data) {
-                return $data->grade_name;
+                return $data->grade->grade_name;
             })
             ->addColumn('division_name', function ($data) {
-                return $data->division_name;
+                return $data->division->division_name;
             })
             ->addColumn('check', function ($data) {
                 return '<label class="pos-rel">
@@ -51,7 +61,7 @@ class ClassroomController extends Controller
                                 <span class="lbl"></span>
                             </label>';
             })
-            ->rawColumns(['action', 'check', 'grade_name', 'division_name'])
+            ->rawColumns(['action', 'check', 'grade_name', 'division_name', 'classroom_name'])
             ->make(true);
     }
 
@@ -62,8 +72,11 @@ class ClassroomController extends Controller
      */
     public function create()
     {
-        $division = new Classroom();
-        return view('student::settings.classrooms.create', compact('division'));
+        $classroom = new Classroom();
+        $divisions = DivisionOp::_fetchAll();
+        $grades = GradeOp::_fetchAll();
+        $years = YearOp::_fetchAll();
+        return view('student::settings.classrooms.create', compact('classroom', 'divisions', 'grades', 'years'));
     }
 
     /**
@@ -87,8 +100,11 @@ class ClassroomController extends Controller
      */
     public function edit($id)
     {
-        $division = ClassroomOp::_fetchById($id);
-        return view('student::settings.classrooms.edit', compact('division'));
+        $classroom = ClassroomOp::_fetchById($id);
+        $divisions = DivisionOp::_fetchAll();
+        $grades = GradeOp::_fetchAll();
+        $years = YearOp::_fetchAll();
+        return view('student::settings.classrooms.edit', compact('classroom', 'divisions', 'years', 'grades'));
     }
 
     /**
@@ -119,5 +135,13 @@ class ClassroomController extends Controller
             }
         }
         return response(['status' => $status]);
+    }
+
+    public function filter()
+    {
+        if (request()->ajax()) {
+            $data = ClassroomOp::_fetchByQuery();
+            return $this->dataTable($data);
+        }
     }
 }

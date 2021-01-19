@@ -19,7 +19,7 @@ class CreateSchoolsTable extends Migration
             $table->string('en_name', 50);
             $table->enum('school_type', ['private', 'lang', 'international'])->default('private');
             $table->string('school_government', 30);
-            $table->string('school_address');
+            $table->string('school_address',100);
             $table->unsignedBigInteger('admin_id');
             $table->foreign('admin_id')->references('id')->on('admins');
             $table->timestamps();

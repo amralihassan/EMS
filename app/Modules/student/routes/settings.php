@@ -17,6 +17,11 @@ Route::post('stages/destroy', 'StageController@destroy')->name('stages.destroy')
 Route::resource('grades', 'GradeController')->except('destroy', 'show');
 Route::post('grades/destroy', 'GradeController@destroy')->name('grades.destroy');
 
+// CLASSROOMS
+Route::resource('classrooms', 'ClassroomController')->except('destroy', 'show');
+Route::post('classrooms/destroy', 'ClassroomController@destroy')->name('classrooms.destroy');
+Route::put('classrooms/by-division-grade/filter/', 'ClassroomController@filter')->name('classrooms.filter');
+
 // INTERVIEWS
 Route::resource('interviews', 'InterviewController')->except('destroy', 'show');
 Route::post('interviews/destroy', 'InterviewController@destroy')->name('interviews.destroy');
