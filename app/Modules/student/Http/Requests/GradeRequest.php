@@ -39,10 +39,10 @@ class GradeRequest extends FormRequest
     public function messages()
     {
         return [
-            'ar_name.required' => trans('student::local.ar_name_required'),
-            'ar_name.max' => trans('student::local.ar_name_max'),
-            'en_name.required' => trans('student::local.en_name_required'),
-            'en_name.max' => trans('student::local.en_name_max'),
+            'ar_name.required' => trans('student::local.ar_grade_name_required'),
+            'ar_name.max' => trans('student::local.ar_grade_name_max'),
+            'en_name.required' => trans('student::local.en_grade_name_required'),
+            'en_name.max' => trans('student::local.en_grade_name_max'),
             'ar_online_name.required' => trans('student::local.ar_online_name_required'),
             'ar_online_name.max' => trans('student::local.ar_online_name_max'),
             'en_online_name.required' => trans('student::local.en_online_name_required'),
