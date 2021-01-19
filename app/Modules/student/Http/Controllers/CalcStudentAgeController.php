@@ -17,23 +17,8 @@ class CalcStudentAgeController extends Controller
     {
         if (request()->ajax()) {
             $dob = request('dob');
-            $data = $this->getStudentAge($dob);
+            $data = getStudentAge($dob);
             return response(['status' => true, 'data' => $data]);
         }
-    }
-
-    private function getStudentAge($dob)
-    {
-        $dob_in = Year::current()->first()->start_from;
-        $dobObject = new \DateTime($dob);
-        $now = new Carbon($dob_in);
-        $thisYear = $now->year;
-        $nowObject = Carbon::create($thisYear, 10, 1, 0, 0, 0);
-        $diff = $dobObject->diff($nowObject);
-        $data['dd'] = $diff->d;
-        $data['mm'] = $diff->m;
-        $data['yy'] = $diff->y;
-
-        return $data;
     }
 }

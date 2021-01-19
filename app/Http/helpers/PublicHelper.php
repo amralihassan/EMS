@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Student\Models\Settings\Year;
 
 
@@ -114,4 +115,39 @@ if (!function_exists('fullAcademicYear')) {
         }
         return 'none';
     }
+}
+
+// calculate student age
+if (!function_exists('getStudentAge')) {
+	function getStudentAge($dob)
+	{
+		$dob_in = Year::current()->first()->start_from;
+		$dobObject = new \DateTime($dob);
+		$now = new Carbon($dob_in);
+		$thisYear   = $now->year;
+		$nowObject = Carbon::create($thisYear, 10, 1, 0, 0, 0);
+		$diff = $dobObject->diff($nowObject);
+		$data['dd'] = $diff->d;
+		$data['mm'] = $diff->m;
+		$data['yy'] = $diff->y;
+
+		return $data;
+	}
+}
+
+if (!function_exists('getStudentAgeByYear')) {
+	function getStudentAgeByYear($year_id, $dob)
+	{
+		$dob_in = Year::findOrFail($year_id)->start_from;
+		$dobObject = new \DateTime($dob);
+		$now = new Carbon($dob_in);
+		$thisYear   = $now->year;
+		$nowObject = Carbon::create($thisYear, 10, 1, 0, 0, 0);
+		$diff = $dobObject->diff($nowObject);
+		$data['dd'] = $diff->d;
+		$data['mm'] = $diff->m;
+		$data['yy'] = $diff->y;
+
+		return $data;
+	}
 }
