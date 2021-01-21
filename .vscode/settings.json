@@ -5,6 +5,7 @@
         "build",
         "hmvc",
         "laratrust",
+        "predis",
         "prefix",
         "signin",
         "spatie",

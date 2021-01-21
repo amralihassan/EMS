@@ -24,5 +24,10 @@ Route::namespace (getNamespaceController($moduleName))->middleware(['web', 'admi
         Route::group(['namespace' => 'Parents', 'prefix' => 'parents'], function () {
             require 'parents.php';
         });
+
+        // STUDENTS
+        Route::group(['namespace' => 'Students', 'prefix' => 'students'], function () {
+            require 'students.php';
+        });
     });
 });

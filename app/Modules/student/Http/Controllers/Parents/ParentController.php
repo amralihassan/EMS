@@ -3,6 +3,7 @@ namespace Student\Http\Controllers\Parents;
 
 use App\Http\Controllers\Controller;
 use DB;
+use Illuminate\Support\Facades\Cache;
 use Student\Http\Requests\FatherRequest;
 use Student\Http\Requests\MotherRequest;
 use Student\Models\Parents\Operations\FatherOp;
@@ -18,6 +19,14 @@ class ParentController extends Controller
         // $this->middleware('permission:view-parents', ['only' => ['index']]);
         // $this->middleware('permission:add-parent', ['only' => ['create', 'store']]);
         // $this->middleware('permission:delete-parent', ['only' => ['destroy']]);
+
+        // USE REDIS SERVER TO FETCH FATHERS DATA
+        if (!Cache::has('fathers')) {
+            $fathers = FatherOp::_fetchAll();
+            Cache::remember('fathers', 3600, function () use ($fathers) {
+                return $fathers;
+            });
+        }
     }
     /**
      * Display a listing of the resource.
@@ -27,7 +36,7 @@ class ParentController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $data = FatherOp::_fetchAll();
+            $data = Cache::get('fathers');
             return $this->dataTable($data);
         }
         return view('student::parents.index');
@@ -96,6 +105,9 @@ class ParentController extends Controller
             $this->father = FatherOp::_store($fatherRequest);
             $mother = MotherOp::_store($motherRequest);
             FatherOp::fatherMotherRelation($this->father, $mother); // MANY TO MANY RELATIONSHIP
+
+            // ADD REFRESH FATHERS IN REDIS
+            Cache::flush();
         });
         toastr()->success(trans('local.saved_success'));
         return redirect()->route('fathers.show', $this->father->id);
