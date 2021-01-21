@@ -19,7 +19,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        toastr()->success('Welcome');
+        // toastr()->success('Welcome');
         return view('home');
     }
 

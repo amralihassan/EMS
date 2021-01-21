@@ -1,12 +1,12 @@
 @extends('admin.layouts.app')
-@section('title',trans('local.students_affairs'))
+@section('title',trans('student::local.calc_student_age'))
 @section('sidebar')
     @include('admin.layouts.sidebars.students-sidebar')
 @endsection
 @section('content')
 <div class="content-header row">
     <div class="content-header-left col-md-6 col-12 mb-2">
-      <h3 class="content-header-title">{{ trans('local.dashboard') }}</h3>
+      <h3 class="content-header-title">{{ trans('student::local.calc_student_age') }}</h3>
       <div class="row breadcrumbs-top">
         <div class="breadcrumb-wrapper col-12">
           <ol class="breadcrumb">

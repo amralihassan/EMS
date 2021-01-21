@@ -10,7 +10,7 @@ interface IMainOperations
 {
     public static function _store($request);
 
-    public static function _update($request, $data);
+    public static function _update($request, $id);
 
-    public static function _destroy($data);
+    public static function _destroy($id);
 }

@@ -1,0 +1,10 @@
+columns: [
+        {data: 'check',               name: 'check', orderable: false, searchable: false},
+        {data: 'DT_RowIndex',         name: 'DT_RowIndex', orderable: false, searchable: false},
+        {data: 'fatherName',         name: 'fatherName'},
+        {data: 'father_id_number',           name: 'father_id_number'},
+        {data: 'mobile',               name: 'mobile'},
+        {data: 'father_job',                 name: 'father_job'},
+        {data: 'motherName',         name: 'motherName'},
+        {data: 'mother_mobile',       name: 'mother_mobile'},
+          ],

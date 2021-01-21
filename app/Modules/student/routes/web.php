@@ -20,5 +20,9 @@ Route::namespace (getNamespaceController($moduleName))->middleware(['web', 'admi
         Route::get('calculate-student-age', 'CalcStudentAgeController@index')->name('calc-age.index');
         Route::put('calculate-student-age', 'CalcStudentAgeController@calculate')->name('calc-age-student');
 
+        // PARENTS
+        Route::group(['namespace' => 'Parents', 'prefix' => 'parents'], function () {
+            require 'parents.php';
+        });
     });
 });

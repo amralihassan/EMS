@@ -1,0 +1,181 @@
+<?php
+namespace Student\Models\Parents;
+
+use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+
+class Father extends Model
+{
+    use LogsActivity;
+
+    protected $fillable =
+        [
+        'ar_st_name',
+        'ar_nd_name',
+        'ar_rd_name',
+        'ar_th_name',
+        'en_st_name',
+        'en_nd_name',
+        'en_rd_name',
+        'en_th_name',
+        'father_id_type',
+        'father_id_number',
+        'father_religion',
+        'father_nationality_id',
+        'father_home_phone',
+        'father_mobile1',
+        'father_mobile2',
+        'father_email',
+        'father_job',
+        'father_qualification',
+        'father_facebook',
+        'father_whatsapp_number',
+        'father_block_no',
+        'father_street_name',
+        'father_state',
+        'father_government',
+        'educational_mandate',
+        'marital_status',
+        'recognition',
+        'admin_id',
+        'user_id',
+
+    ];
+
+    protected static $logAttributes =
+        [
+        'ar_st_name',
+        'ar_nd_name',
+        'ar_rd_name',
+        'ar_th_name',
+        'en_st_name',
+        'en_nd_name',
+        'en_rd_name',
+        'en_th_name',
+        'father_id_type',
+        'father_id_number',
+        'father_religion',
+        'father_nationality_id',
+        'father_home_phone',
+        'father_mobile1',
+        'father_mobile2',
+        'father_email',
+        'father_job',
+        'father_qualification',
+        'father_facebook',
+        'father_whatsapp_number',
+        'father_block_no',
+        'father_street_name',
+        'father_state',
+        'father_government',
+        'educational_mandate',
+        'marital_status',
+        'recognition',
+        'admin_id',
+        'user_id',
+
+    ];
+
+    public function admin()
+    {
+        return $this->belongsTo('App\Models\Admin', 'admin_id');
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return \Carbon\Carbon::parse($value)->format('M d Y, D h:i a');
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return \Carbon\Carbon::parse($value)->format('M d Y, D h:i a');
+    }
+
+    public function nationalities()
+    {
+        return $this->belongsTo('Student\Models\Settings\Nationality', 'father_nationality_id');
+    }
+
+    public function mothers()
+    {
+        return $this->belongsToMany('Student\Models\Parents\Mother', 'father_mother', 'father_id', 'mother_id');
+    }
+
+    public function getIdTypeAttribute()
+    {
+        return $this->attributes['father_id_type'] == 'national_id' ? trans('student::local.national_id') :
+        trans('student::local.passport');
+    }
+
+    public function getEducationalMandateAttribute()
+    {
+        return $this->attributes['educational_mandate'] == 'father' ? trans('student::local.father') : trans('student::local.mother');
+    }
+
+    public function students()
+    {
+        return $this->hasMany('Student\Models\Student\Student', 'father_id')->orderBy('dob', 'asc');
+    }
+
+    public function getMaritalStatusAttribute()
+    {
+        switch ($this->attributes['marital_status']) {
+            case 'married':return trans('student::local.married');
+            case 'divorced':return trans('student::local.divorced');
+            case 'separated':return trans('student::local.separated');
+            case 'widower':return trans('student::local.widower');
+        }
+    }
+
+    public function getRecognitionAttribute()
+    {
+        switch ($this->attributes['recognition']) {
+            case 'facebook':return trans('student::local.facebook');
+            case 'parent':return trans('student::local.parent');
+            case 'street':return trans('student::local.street');
+            case 'school_hub':return trans('student::local.school_hub');
+        }
+    }
+
+    public function getFatherNameAttribute()
+    {
+        if (session('lang') == 'ar') {
+            return $this->ar_st_name . ' ' . $this->ar_nd_name . ' ' . $this->ar_rd_name . ' ' . $this->ar_th_name;
+        } else {
+            return $this->en_st_name . ' ' . $this->en_nd_name . ' ' . $this->en_rd_name . ' ' . $this->en_th_name;
+        }
+    }
+
+    public function getNationalityNameAttribute()
+    {
+        return session('lang') == 'ar' ? $this->nationalities->ar_male_name : $this->nationalities->en_name;
+    }
+
+    public function setEnStNameAttribute($value)
+    {
+        return $this->attributes['en_st_name'] = ucfirst($value);
+    }
+
+    public function setEnNdNameAttribute($value)
+    {
+        return $this->attributes['en_nd_name'] = ucfirst($value);
+    }
+
+    public function setEnRdNameAttribute($value)
+    {
+        return $this->attributes['en_rd_name'] = ucfirst($value);
+    }
+
+    public function setEnThNameAttribute($value)
+    {
+        return $this->attributes['en_th_name'] = ucfirst($value);
+    }
+
+    public static function boot()
+    {
+        parent::boot(); // TODO: Change the autogenerated stub
+        static::saved(function ($father) {
+
+        });
+    }
+}
