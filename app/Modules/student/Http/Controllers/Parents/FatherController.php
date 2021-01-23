@@ -17,6 +17,7 @@ class FatherController extends Controller
     {
         // $this->middleware('permission:view-father', ['only' => ['show']]);
         // $this->middleware('permission:edit-father', ['only' => ['edit', 'update']]);
+        // $this->middleware('permission:add-mother', ['only' => ['createMother', 'storeMother']]);
     }
     /**
      * Display the specified resource.

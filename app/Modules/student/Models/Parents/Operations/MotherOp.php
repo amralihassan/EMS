@@ -3,8 +3,9 @@
 namespace Student\Models\Parents\Operations;
 
 use App\Interfaces\IFetchData;
-use App\Interfaces\IMainOperations;
 use Student\Models\Parents\Mother;
+use App\Interfaces\IMainOperations;
+use Illuminate\Support\Facades\Cache;
 
 class MotherOp extends Mother implements IFetchData, IMainOperations
 {
@@ -51,10 +52,19 @@ class MotherOp extends Mother implements IFetchData, IMainOperations
     {
         $mother = Mother::findOrFail($id);
         $mother->update($request->only(self::attributes()));
+
+        Cache::flush(); // update students in redis cache
     }
 
     public static function _destroy($data)
     {
         return false;
+    }
+
+    public static function whereHas($father_id)
+    {
+        return Mother::whereHas('fathers', function ($q) use ($father_id) {
+            $q->where('father_id', $father_id);
+        })->get();
     }
 }

@@ -200,13 +200,13 @@ class Student extends Model
         }
     }
 
-    public function getShowStudentAttribute()
+    public function getStudentImagePathAttribute()
     {
         if ($this->student_image) {
             return 'storage/student-images/' . $this->student_image;
         }
-        return $this->gender == trans('student::local.male') ?
-        'storage/student-images/37.jpeg' : 'storage/student-images/39.png';
+        return $this->gender == 'male' ?
+        'storage/student-images/37.png' : 'storage/student-images/39.png';
     }
 
     public function scopeSort($q)
@@ -222,9 +222,30 @@ class Student extends Model
             return $this->attributes['religion'] == 'muslim' ? trans('student::local.muslim_m') : trans('student::local.non_muslim_m');
         }
     }
+
     public function scopeStudent($q)
     {
         return $q->where('student_type', 'student');
+    }
+
+    public function steps()
+    {
+        return $this->belongsToMany('Student\Models\Settings\Step', 'student_step', 'student_id', 'step_id');
+    }
+
+    public function addresses()
+    {
+        return $this->hasMany('Student\Models\Student\StudentAddress', 'student_address', 'student_id');
+    }
+
+    public function classrooms()
+    {
+        return $this->belongsToMany('Student\Models\Settings\Classroom', 'student_classroom', 'student_id', 'classroom_id');
+    }
+
+    public function documents()
+    {
+        return $this->belongsToMany('Student\Models\Settings\AdmissionDocument', 'student_document', 'student_id', 'admission_document_id');
     }
 
 }

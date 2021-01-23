@@ -16,7 +16,7 @@ class AdmissionDocumentOp extends AdmissionDocument implements IFetchData, IMain
 
     public static function _fetchAll()
     {
-        return AdmissionDocument::latest();
+        return AdmissionDocument::sort()->get();
     }
 
     public static function _fetchById($id)

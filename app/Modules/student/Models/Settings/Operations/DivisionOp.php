@@ -33,6 +33,7 @@ class DivisionOp extends Division implements IFetchData, IMainOperations
     {
         $division = Division::findOrFail($id);
         $division->update($request->only(self::attributes()));
+        return true;
     }
 
     public static function _destroy($data)

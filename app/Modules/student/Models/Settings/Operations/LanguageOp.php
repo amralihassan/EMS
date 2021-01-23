@@ -42,4 +42,13 @@ class LanguageOp extends Language implements IFetchData, IMainOperations
         }
         return true;
     }
+    public static function speak()
+    {
+        return Language::sort()->speak()->get();
+    }
+
+    public static function study()
+    {
+        return Language::sort()->study()->get();
+    }
 }

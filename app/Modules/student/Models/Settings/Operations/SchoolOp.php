@@ -15,7 +15,7 @@ class SchoolOp extends School implements IFetchData, IMainOperations
 
     public static function _fetchAll()
     {
-        return School::latest();
+        return School::all();
     }
 
     public static function _fetchById($id)

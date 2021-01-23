@@ -47,4 +47,13 @@ class Language extends Model
 
         }
     }
+    public function scopeSpeak($query)
+    {
+        return $query->where('lang_type', '<>', 'study');
+    }
+
+    public function scopeStudy($query)
+    {
+        return $query->where('lang_type', '<>', 'speak');
+    }
 }

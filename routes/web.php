@@ -9,7 +9,3 @@ use Spatie\Activitylog\Models\Activity;
  */
 
 Route::redirect('/','admin/dashboard');
-
-Route::get('/activity',function(){
-    return Activity::all()->last();
-});

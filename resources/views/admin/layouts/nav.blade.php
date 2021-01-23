@@ -151,11 +151,7 @@
             {{-- modules --}}
             <li class="dropdown dropdown-language nav-item"><a class="dropdown-toggle nav-link" id="dropdown-flag" href="#" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-                  @if (request()->segment(3) == 'students')
-                    <i class="flag-icon flag-icon-graduation-cap"></i><span class="selected-language">{{ trans('local.students_affairs') }}</span>
-                  @else
-                    <i class="ficon ft-home"></i><span class="selected-language">{{ trans('local.modules') }}</span>
-                  @endif
+                  <i class="ficon ft-home"></i><span class="selected-language">{{ trans('local.modules') }}</span>
                 <span class="selected-language"></span></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown-flag">
                   <a class="dropdown-item" href="{{route('students.dashboard')}}"><i class="la la-graduation-cap"></i> {{ trans('local.students_affairs') }}</a>

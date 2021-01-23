@@ -2,8 +2,9 @@
 namespace Student\Models\Parents\Operations;
 
 use App\Interfaces\IFetchData;
-use App\Interfaces\IMainOperations;
 use Student\Models\Parents\Father;
+use App\Interfaces\IMainOperations;
+use Illuminate\Support\Facades\Cache;
 
 class FatherOp extends Father implements IFetchData, IMainOperations
 {
@@ -65,6 +66,8 @@ class FatherOp extends Father implements IFetchData, IMainOperations
     {
         $father = Father::findOrFail($id);
         $father->update($request->only(self::attributes()));
+
+        Cache::flush(); // update students in redis cache
     }
 
     public static function _destroy($data)

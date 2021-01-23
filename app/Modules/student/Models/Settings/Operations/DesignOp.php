@@ -27,7 +27,6 @@ class DesignOp extends Design implements IFetchData, IMainOperations
 
     public static function _store($request)
     {
-        // dd($request->all());
         DB::transaction(function () use ($request) {
             $design = $request->user()->designs()->create($request->only(self::attributes()));
 

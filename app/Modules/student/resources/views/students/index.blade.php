@@ -1,21 +1,21 @@
 @extends('admin.layouts.app')
-@section('title', trans('local.roles'))
 @section('styles')
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/tables/datatable/datatables.min.css') }}">
 @endsection
+@section('title', trans('student::local.students_data'))
 @section('sidebar')
-    @include('admin.layouts.sidebar')
+    @include('admin.layouts.sidebars.students-sidebar')
 @endsection
 @section('content')
     <div class="content-header row">
         <div class="content-header-left col-md-6 col-12 mb-2">
-            <h3 class="content-header-title">{{ trans('local.roles') }}</h3>
+            <h3 class="content-header-title">{{ trans('student::local.students_data') }}</h3>
             <div class="row breadcrumbs-top">
                 <div class="breadcrumb-wrapper col-12">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ trans('local.dashboard') }}</a>
-                        </li>
-                        <li class="breadcrumb-item active">{{ trans('local.roles') }}</li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('students.dashboard') }}">{{ trans('local.dashboard') }}</a></li>
+                        <li class="breadcrumb-item active">{{ trans('student::local.students_data') }}</li>
                     </ol>
                 </div>
             </div>
@@ -28,17 +28,21 @@
                 <div class="card-content collapse show">
                     <div class="card-body card-dashboard">
                         <div class="table-responsive">
-                            <form id='formData' method="post">
+                            <form action="" id='formData' method="post">
                                 @csrf
                                 <table id="dynamic-table" class="table data-table">
                                     <thead>
                                         <tr>
                                             <th><input type="checkbox" class="ace" /></th>
                                             <th>#</th>
-                                            <th>{{ trans('local.display_name') }}</th>
-                                            <th>{{ trans('local.description') }}</th>
-                                            <th>{{ trans('local.show') }}</th>
-                                            <th>{{ trans('local.edit') }}</th>
+                                            <th>{{ trans('student::local.student_image') }}</th>
+                                            <th>{{ trans('student::local.application_date') }}</th>
+                                            <th>{{ trans('student::local.student_name') }}</th>
+                                            <th>{{ trans('student::local.student_number') }}</th>
+                                            <th>{{ trans('student::local.student_type') }}</th>
+                                            <th>{{ trans('student::local.registration_status') }}</th>
+                                            <th>{{ trans('student::local.grade_name') }}</th>
+                                            <th>{{ trans('student::local.more') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -51,7 +55,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('script')
@@ -62,19 +65,20 @@
                 buttons: [
                     // new btn
                     {
-                        "text": "{{ trans('local.add_role') }}",
+                        "text": "{{ trans('student::local.new_student') }}",
                         "className": "btn btn-success mr-1",
                         action: function(e, dt, node, config) {
-                            window.location.href = "{{ route('roles.create') }}";
+                            window.location.href = "";
                         }
                     },
                     // delete btn
-                    @include('admin.roles.includes._delete-btn')
+                    @include('student::students.includes._delete-btn')
                     // default btns
                     @include('admin.datatables._buttons')
                 ],
-                ajax: "{{ route('roles.index') }}",
-                @include('admin.roles.includes._columns')
+                ajax: "{{ route('students.index') }}",
+                // columns
+                @include('student::students.includes._columns')
                 @include('admin.datatables._lang')
             });
             @include('admin.datatables._multi-select')
