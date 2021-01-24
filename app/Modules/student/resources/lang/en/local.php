@@ -986,7 +986,7 @@ return [
     'ask_delete_parent'             => 'Are you sure you want to delete these parents?',
     'ask_delete_student'            => 'Are you sure you want to delete these students?',
     'new'                           => 'New',
-    '' => '',
+    'registration_type'             => 'Registration Type',
     '' => '',
     '' => '',
     '' => '',

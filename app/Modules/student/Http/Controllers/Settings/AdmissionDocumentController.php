@@ -7,6 +7,7 @@ use Student\Http\Requests\AdmissionDocumentRequest;
 use Student\Models\Settings\AdmissionDocument;
 use Student\Models\Settings\Operations\AdmissionDocumentOp;
 use Student\Models\Settings\Operations\GradeOp;
+use Student\Models\Student\Operations\StudentOp;
 
 class AdmissionDocumentController extends Controller
 {
@@ -46,13 +47,24 @@ class AdmissionDocumentController extends Controller
             ->addColumn('grades', function ($data) {
                 return $this->grades($data);
             })
+            ->addColumn('registration_type', function ($data) {
+                $registration_type = '';
+                $type = explode(',', $data->registration_type);
+                for ($i = 0; $i < count($type); $i++) {
+                    $registration_type .= preg_match('/\bnew\b/', $type[$i]) != 0 ? "<span class='btn btn-light btn-sm'>" . trans('student::local.new') . "</span>" . ' ' : '';
+                    $registration_type .= preg_match('/\btransfer\b/', $type[$i]) != 0 ? "<span class='btn btn-light btn-sm'>" . trans('student::local.transfer') . "</span>" . ' ' : '';
+                    $registration_type .= preg_match('/\breturning\b/', $type[$i]) != 0 ? "<span class='btn btn-light btn-sm'>" . trans('student::local.return') . "</span>" . ' ' : '';
+                    $registration_type .= preg_match('/\barrival\b/', $type[$i]) != 0 ? "<span class='btn btn-light btn-sm'>" . trans('student::local.arrival') . "</span>" : '';
+                }
+                return $registration_type;
+            })
             ->addColumn('check', function ($data) {
                 return '<label class="pos-rel">
                                 <input type="checkbox" class="ace" name="id[]" value="' . $data->id . '" />
                                 <span class="lbl"></span>
                             </label>';
             })
-            ->rawColumns(['action', 'check', 'document_name', 'grades'])
+            ->rawColumns(['action', 'check', 'document_name', 'grades', 'registration_type'])
             ->make(true);
     }
 
@@ -131,5 +143,51 @@ class AdmissionDocumentController extends Controller
             }
         }
         return response(['status' => $status]);
+    }
+
+    public function getDocumentSelected()
+    {
+        $id = request()->get('id');
+        $student = StudentOp::_fetchById($id);
+        $output = "";
+        $reg_type = '';
+        switch ($student->reg_type) {
+            case 'مستجد':
+                $reg_type = 'new';
+                break;
+            case 'محول':
+                $reg_type = 'transfer';
+                break;
+            case 'عائد':
+                $reg_type = 'return';
+                break;
+            default:
+                $reg_type = 'arrival';
+                break;
+        }
+
+        $admissionDocuments = AdmissionDocumentOp::admissionDocumentByGrade($student->grade_id);
+
+        foreach ($admissionDocuments as $document) {
+            if (str_contains($document->registration_type, $reg_type)) {
+
+                $document_id = AdmissionDocumentOp::_fetchByQuery($id, $document->id);
+
+                $document_value = !empty($document_id->admission_document_id) ?
+                $document_id->admission_document_id : 0;
+
+                $checked = $document->id == $document_value ? "checked" : "";
+
+                $output .= '<h5><li>
+                                <fieldset>
+                                    <input type="checkbox" ' . $checked . ' class="chk-remember" name="documents[]"
+                                        value="' . $document->id . '">
+                                    <label class="pos-rel">' . $document->document_name . '</label>
+                                </fieldset>
+                            </li></h5>';
+            }
+        };
+
+        return json_encode($output);
     }
 }

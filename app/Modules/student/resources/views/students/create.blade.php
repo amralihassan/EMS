@@ -59,13 +59,12 @@
     <script src="{{ asset('app-assets/js/scripts/forms/form-login-register.js') }}" type="text/javascript"></script>
 
 
-    {{-- <script>
+    <script>
         $('#dob').on('change', function() {
             var dob = $('#dob').val();
             $.ajax({
                 type: 'POST',
-                url: '{{ route('
-                student.age ') }}',
+                url: '{{ route("calc-age-student") }}',
                 data: {
                     _method: 'PUT',
                     dob: dob,
@@ -80,5 +79,7 @@
 
         })
 
-    </script> --}}
+    
+
+    </script>
 @endsection

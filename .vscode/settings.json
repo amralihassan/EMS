@@ -4,11 +4,13 @@
         "authenticatable",
         "build",
         "hmvc",
+        "icheckbox",
         "laratrust",
         "predis",
         "prefix",
         "signin",
         "spatie",
+        "square",
         "toastr",
         "trait",
         "user"

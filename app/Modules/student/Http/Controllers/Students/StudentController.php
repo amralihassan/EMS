@@ -106,9 +106,10 @@ class StudentController extends Controller
         $steps = StepOp::_fetchAll();
         $schools = SchoolOp::_fetchAll();
         $guardians = GuardianOp::_fetchAll();
+        $active = true;
         return view('student::students.create',
             compact('student', 'mothers', 'nationalities', 'speaking_lang', 'studding_lang', 'reg_status', 'divisions',
-                'grades', 'documents', 'steps', 'schools', 'guardians', 'father_id'));
+                'grades', 'documents', 'steps', 'schools', 'guardians', 'father_id', 'active'));
     }
 
     /**
@@ -163,7 +164,23 @@ class StudentController extends Controller
     public function edit($id)
     {
         $student = StudentOp::_fetchById($id);
-        return view('student::students.edit', compact('student'));
+        $father_id = $student->father_id;
+        $mothers = MotherOp::whereHas($father_id);
+        $nationalities = NationalityOp::_fetchAll();
+        $speaking_lang = LanguageOp::speak();
+        $studding_lang = LanguageOp::study();
+        $reg_status = RegistrationStatusOp::_fetchAll();
+        $divisions = DivisionOp::_fetchAll();
+        $grades = GradeOp::_fetchAll();
+        $steps = StepOp::_fetchAll();
+        $schools = SchoolOp::_fetchAll();
+        $guardians = GuardianOp::_fetchAll();
+
+        $active = false;
+
+        return view('student::students.edit',
+            compact('student', 'mothers', 'nationalities', 'speaking_lang', 'studding_lang', 'reg_status', 'divisions',
+                'grades', 'steps', 'schools', 'guardians', 'father_id', 'active'));
     }
 
     /**
@@ -175,6 +192,20 @@ class StudentController extends Controller
      */
     public function update(StudentRequest $request, $id)
     {
+        // Ensure that the age fits the stage
+        if (StudentOp::checkAgeForGrade() == 'older') {
+            toastr()->error(trans('student::local.older_message'));
+            return back()->withInput();
+        }
+        if (StudentOp::checkAgeForGrade() == 'smaller') {
+            toastr()->error(trans('student::local.smaller_message'));
+            return back()->withInput();
+        }
+        if (StudentOp::checkAgeForGrade() == 'invalid') {
+            toastr()->error(trans('student::local.invalid_message'));
+            return back()->withInput();
+        }
+        
         StudentOp::_update($request, $id);
         toastr()->success(trans('local.updated_success'));
         return redirect()->route('students.index');

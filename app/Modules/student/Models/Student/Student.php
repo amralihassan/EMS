@@ -149,9 +149,9 @@ class Student extends Model
         return $this->belongsTo('Student\Models\Settings\Language', 'second_lang_id');
     }
 
-    public function getRegTypeAttribute()
+    public function getRegTypeAttribute($value)
     {
-        switch ($this->attributes['reg_type']) {
+        switch ($value) {
             case 'new':return trans('student::local.new');
             case 'transfer':return trans('student::local.transfer');
             case 'arrival':return trans('student::local.arrival');
@@ -214,13 +214,14 @@ class Student extends Model
         return $q->orderBy('ar_student_name');
     }
 
-    public function getReligionAttribute()
+    public function getReligionMaleAttribute()
     {
-        if ($this->attributes['gender'] == 'male') {
-            return $this->attributes['religion'] == 'muslim' ? trans('student::local.muslim') : trans('student::local.non_muslim');
-        } else {
-            return $this->attributes['religion'] == 'muslim' ? trans('student::local.muslim_m') : trans('student::local.non_muslim_m');
-        }
+        return $this->attributes['religion'] == 'muslim' ? trans('student::local.muslim') : trans('student::local.non_muslim');
+    }
+
+    public function getReligionFemaleAttribute()
+    {
+        return $this->attributes['religion'] == 'muslim' ? trans('student::local.muslim_m') : trans('student::local.non_muslim_m');
     }
 
     public function scopeStudent($q)
@@ -235,7 +236,7 @@ class Student extends Model
 
     public function addresses()
     {
-        return $this->hasMany('Student\Models\Student\StudentAddress', 'student_address', 'student_id');
+        return $this->hasMany('Student\Models\Student\StudentAddress', 'student_id');
     }
 
     public function classrooms()

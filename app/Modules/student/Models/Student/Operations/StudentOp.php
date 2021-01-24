@@ -1,15 +1,15 @@
 <?php
 namespace Student\Models\Student\Operations;
 
-use DB;
-use App\MedicalOp;
 use App\Interfaces\IFetchData;
 use App\Interfaces\IMainOperations;
-use Student\Models\Student\Student;
+use App\MedicalOp;
+use DB;
 use Illuminate\Support\Facades\Cache;
 use Intervention\Image\Facades\Image;
-use Student\Models\Student\StudentAddress;
 use Student\Models\Settings\Operations\GradeOp;
+use Student\Models\Student\Student;
+use Student\Models\Student\StudentAddress;
 
 class StudentOp extends Student implements IFetchData, IMainOperations
 {
@@ -88,7 +88,8 @@ class StudentOp extends Student implements IFetchData, IMainOperations
 
     public static function _fetchById($id)
     {
-        return Student::with('nationalities', 'regStatus', 'division', 'father', 'mother', 'grade', 'guardian', 'native', 'languages')
+        return Student::with('nationalities', 'regStatus', 'division', 'father', 'mother',
+            'grade', 'guardian', 'native', 'languages')
             ->where('id', $id)
             ->firstOrFail();
     }
@@ -173,8 +174,26 @@ class StudentOp extends Student implements IFetchData, IMainOperations
 
     public static function _update($request, $id)
     {
-        $student = Student::findOrFail($id);
-        $student->update($request->only(self::attributes()));
+        DB::transaction(function () use ($request, $id) {
+            $student = Student::findOrFail($id);
+            $student->update($request->only(self::attributes()));
+
+            // upload student image
+            self::uploadStudentImage($student, $request);
+
+            // student steps
+            $student->steps()->sync($request->steps);
+
+            // student documents
+            $student->documents()->sync($request->documents);
+
+            // add student address
+            self::studentAddresses($student->id);
+
+            // Get brothers / sisters and twins
+            self::updateTwinsAndSiblings($student);
+
+        });
 
         Cache::flush(); // update students in redis cache
     }

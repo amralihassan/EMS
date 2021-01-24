@@ -3,8 +3,6 @@
 namespace Student\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Carbon\Carbon;
-use Student\Models\Settings\Year;
 
 class CalcStudentAgeController extends Controller
 {

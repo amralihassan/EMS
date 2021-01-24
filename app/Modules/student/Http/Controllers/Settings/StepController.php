@@ -117,4 +117,30 @@ class StepController extends Controller
         }
         return response(['status' => $status]);
     }
+
+    public function getStepsSelected()
+    {
+        $id = request()->get('id');
+        $output = "";
+
+        $steps = StepOp::_fetchAll();
+        foreach ($steps as $step) {
+
+            $step_id = StepOp::_fetchByQuery($id, $step->id);
+
+            $step_value = !empty($step_id->step_id)?$step_id->step_id:0;
+
+            $checked = $step->id == $step_value ?"checked":"";
+
+            $output .= '<h5><li>
+                <fieldset>
+                    <input type="checkbox" ' . $checked . ' class="chk-remember" name="steps[]"
+                        value="' . $step->id . '">
+                    <label class="pos-rel">' . $step->step_name . '</label>
+                </fieldset>
+            </li></h5>';
+        };
+
+        return json_encode($output);
+    }
 }

@@ -36,6 +36,7 @@
                                 <th>#</th>
                                 <th>{{trans('student::local.document_name')}}</th>
                                 <th>{{trans('student::local.grades')}}</th>
+                                <th>{{trans('student::local.reg_type')}}</th>
                                 <th>{{trans('student::local.sort')}}</th>
                                 <th>{{trans('local.edit')}}</th>
                             </tr>

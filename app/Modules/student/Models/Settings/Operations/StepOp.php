@@ -4,6 +4,7 @@ namespace Student\Models\Settings\Operations;
 
 use App\Interfaces\IFetchData;
 use App\Interfaces\IMainOperations;
+use DB;
 use Student\Models\Settings\Step;
 
 class StepOp extends Step implements IFetchData, IMainOperations
@@ -41,5 +42,11 @@ class StepOp extends Step implements IFetchData, IMainOperations
             Step::destroy($id);
         }
         return true;
+    }
+
+    public static function _fetchByQuery($student_id, $step_id)
+    {
+        return DB::table('student_step')->select('step_id')
+            ->where('student_id', $student_id)->where('step_id', $step_id)->first();
     }
 }

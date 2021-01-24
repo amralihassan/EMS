@@ -45,6 +45,7 @@ Route::post('schools/destroy', 'SchoolController@destroy')->name('schools.destro
 // STEPS
 Route::resource('steps', 'StepController')->except('destroy', 'show');
 Route::post('steps/destroy', 'StepController@destroy')->name('steps.destroy');
+Route::put('steps/get/steps-selected','StepController@getStepsSelected')->name('get-step-selected');
 
 // SUBJECTS
 Route::resource('subjects', 'SubjectController')->except('destroy', 'show');
@@ -57,6 +58,7 @@ Route::post('submission-tests/destroy', 'SubmissionTestController@destroy')->nam
 // APPLICATION DOCUMENTS
 Route::resource('admission-documents', 'AdmissionDocumentController')->except('destroy', 'show');
 Route::post('admission-documents/destroy', 'AdmissionDocumentController@destroy')->name('admission-documents.destroy');
+Route::put('admission-documents/grades/get-require','AdmissionDocumentController@getDocumentSelected')->name('get-document-selected');
 
 // ID CARDS DESIGN
 Route::resource('id-cards-designs', 'DesignController')->except('show');
